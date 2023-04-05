@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="0dp"
-    android:background="#201A30">
+    android:background="#201A30"
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/newsCard"

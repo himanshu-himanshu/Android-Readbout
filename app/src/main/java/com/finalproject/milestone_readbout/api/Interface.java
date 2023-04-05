@@ -1,12 +1,10 @@
 package com.finalproject.milestone_readbout.api;
 import com.finalproject.milestone_readbout.models.NewsModel;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface Interface {
-    String BASE_URL = "https://newsapi.org/v2/";
 
     @GET("top-headlines")
     Call<NewsModel> getNews(

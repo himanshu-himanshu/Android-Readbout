@@ -18,15 +18,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-//        viewPager2 = findViewById(R.id.sectionContainer);
-//        fragmentStateAdapter = new ScreenSlidePagerAdapter(this);
-//        viewPager2.setAdapter(fragmentStateAdapter);
-
         bottomNavigationView = findViewById(R.id.bottomTab);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new TrendingFragment()).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -45,12 +38,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.setting:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingFragment()).commit();
                         return true;
-
                 }
-
                 return false;
             }
         });
-
     }
 }

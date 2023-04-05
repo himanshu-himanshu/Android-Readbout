@@ -14,16 +14,16 @@ import com.finalproject.milestone_readbout.adapters.RecyclerViewAdapter;
 import com.finalproject.milestone_readbout.api.Utilities;
 import com.finalproject.milestone_readbout.models.ArticlesModel;
 import com.finalproject.milestone_readbout.models.NewsModel;
+import com.finalproject.milestone_readbout.utils.Constants;
+
 import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TrendingFragment extends Fragment {
-    String API = "8cc0afbe6caa4d6da3f9403c458e639e";
     ArrayList<ArticlesModel> articlesModelsArrayList;
     RecyclerViewAdapter adapter;
-    String country = "ca";
     private RecyclerView recyclerViewTrending;
 
     @Nullable
@@ -44,7 +44,7 @@ public class TrendingFragment extends Fragment {
 
     private void fetchNews() {
 
-        Utilities.getInterface().getNews(country, API).enqueue(new Callback<NewsModel>() {
+        Utilities.getInterface().getNews(Constants.COUNTRY, Constants.API_KEY).enqueue(new Callback<NewsModel>() {
             @Override
             public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
                 if (response.isSuccessful()) {

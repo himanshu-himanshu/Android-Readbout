@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">Milestone-Readbout</string>
+ <string name="app_name">Readbout</string>
+ <string name="trendingHeading">Top Stories</string>
+ <string name="categoryHeading">Categories</string>
+ <string name="categorySubHeading">Now get news by category. Click on any category to get related news.</string>
+ <string name="entertainment">Entertainment</string>
+ <string name="entertainmentImg">Entertainment Image</string>
+ <string name="sports">Sports</string>
+
+ <string name="science">Science</string>
+
+ <string name="tech">Technology</string>
+
+ <string name="business">Business</string>
+
+ <string name="health">Health</string>
+
 </resources>

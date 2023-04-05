@@ -17,7 +17,6 @@ import com.finalproject.milestone_readbout.api.Utilities;
 import com.finalproject.milestone_readbout.models.ArticlesModel;
 
 import java.util.ArrayList;
-
 public class
 RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 

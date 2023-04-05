@@ -5,20 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.finalproject.milestone_readbout.adapters.RecyclerViewAdapter;
 import com.finalproject.milestone_readbout.api.Utilities;
 import com.finalproject.milestone_readbout.models.ArticlesModel;
 import com.finalproject.milestone_readbout.models.NewsModel;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

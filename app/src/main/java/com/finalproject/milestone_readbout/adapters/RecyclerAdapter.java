@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.finalproject.milestone_readbout.R;
-import com.finalproject.milestone_readbout.api.Utilities;
-import com.finalproject.milestone_readbout.models.ArticlesModel;
 import com.finalproject.milestone_readbout.models.ResultsModel;
 
 import java.util.ArrayList;

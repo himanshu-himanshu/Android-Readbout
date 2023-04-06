@@ -5,45 +5,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.finalproject.milestone_readbout.adapters.RecyclerAdapter;
-import com.finalproject.milestone_readbout.adapters.RecyclerViewAdapter;
 import com.finalproject.milestone_readbout.api.Utilities;
-import com.finalproject.milestone_readbout.models.ArticlesModel;
-import com.finalproject.milestone_readbout.models.GuardianNewsModel;
 import com.finalproject.milestone_readbout.models.GuardianResponse;
-import com.finalproject.milestone_readbout.models.NewsModel;
 import com.finalproject.milestone_readbout.models.ResultsModel;
 import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Collection;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TrendingFragment extends Fragment {
 
-    //ArrayList<ArticlesModel> articlesModelsArrayList; // News API
-    //RecyclerViewAdapter adapter; // News API
-
-    ArrayList<ResultsModel> resultsModelArrayList; // Guardian API
-    RecyclerAdapter adapterSecond; // Guardian API
+    ArrayList<ResultsModel> resultsModelArrayList;
+    RecyclerAdapter adapterSecond;
     private RecyclerView recyclerViewTrending;
     @Nullable
     @Override
@@ -52,15 +36,11 @@ public class TrendingFragment extends Fragment {
 
         recyclerViewTrending = view.findViewById(R.id.trendingRecyclerView);
 
-        //articlesModelsArrayList = new ArrayList<>(); // NewsAPI
-
-        resultsModelArrayList = new ArrayList<>(); // Guardian API
+        resultsModelArrayList = new ArrayList<>();
 
         recyclerViewTrending.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //adapter = new RecyclerViewAdapter(getContext(), articlesModelsArrayList); // NewsAPI
-
-        adapterSecond = new RecyclerAdapter(getContext(), resultsModelArrayList); // Guardian API
+        adapterSecond = new RecyclerAdapter(getContext(), resultsModelArrayList);
 
         recyclerViewTrending.setAdapter(adapterSecond);
 
@@ -79,7 +59,7 @@ public class TrendingFragment extends Fragment {
                         JSONObject responseJsonObject = jsonObject.getJSONObject("response");
                         JSONArray resultsJsonArray = responseJsonObject.getJSONArray("results");
 
-                        Log.e("cvbnop", String.valueOf(resultsJsonArray));
+                        Log.e("RESULTS DATA: ", String.valueOf(resultsJsonArray));
 
                         for (int i = 0; i < resultsJsonArray.length(); i++) {
 
@@ -127,7 +107,6 @@ public class TrendingFragment extends Fragment {
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-
                 }
             }
             @Override

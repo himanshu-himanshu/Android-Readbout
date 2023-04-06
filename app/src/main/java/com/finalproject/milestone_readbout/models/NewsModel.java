@@ -6,7 +6,6 @@ public class NewsModel {
     private String status;
     private String totalResults;
     private ArrayList<ArticlesModel> articles;
-
     public NewsModel(String status, String totalResults, ArrayList<ArticlesModel> articles) {
         this.status = status;
         this.totalResults = totalResults;

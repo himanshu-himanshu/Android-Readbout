@@ -1,6 +1,9 @@
 package com.finalproject.milestone_readbout;
 
+import static android.text.Html.FROM_HTML_MODE_LEGACY;
+
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +70,7 @@ public class TrendingFragment extends Fragment {
                             JSONObject currentNews = resultsJsonArray.getJSONObject(i);
                             // For a given news, extract the value for the key called "webTitle"
                             String webTitle = currentNews.getString("webTitle");
+                            String webTitleHtmlToText = String.valueOf(Html.fromHtml(webTitle, FROM_HTML_MODE_LEGACY));
                             // For a given news, extract the value for the key called "sectionName"
                             String sectionName = currentNews.getString("sectionName");
                             // For a given news, extract the value for the key called "webPublicationDate"
@@ -76,6 +80,7 @@ public class TrendingFragment extends Fragment {
 
                             String thumbnail = null;
                             String trailText = null;
+                            String trailTextHtmlToText = null;
 
                             JSONObject fieldsObject = currentNews.getJSONObject("fields");
                             //thumbnail = fieldsObject.getString("thumbnail");
@@ -93,11 +98,12 @@ public class TrendingFragment extends Fragment {
                                 // If there is the key called "trailText", extract the value for the key called "trailText"
                                 if (fieldsObject.has("trailText")) {
                                     trailText = fieldsObject.getString("trailText");
+                                    trailTextHtmlToText = String.valueOf(Html.fromHtml(trailText, FROM_HTML_MODE_LEGACY));
                                 }
                             }
 
                             // Create a new {@link News} object with the title and url from the JSON response.
-                            ResultsModel gResponse = new ResultsModel(sectionName, webPublicationDate, webTitle, webUrl, fieldsObject, thumbnail, trailText);
+                            ResultsModel gResponse = new ResultsModel(sectionName, webPublicationDate, webTitleHtmlToText, webUrl, fieldsObject, thumbnail, trailTextHtmlToText);
 
                             // Add the new {@link News} to list of newsList.
                             resultsModelArrayList.add(gResponse);

@@ -10,7 +10,8 @@ public interface Interface {
     @GET("search")
     Call<GuardianResponse> getGuardianNews(
             @Query("api-key") String apikey,
-            @Query("show-fields") String showFields
+            @Query("show-fields") String showFields,
+            @Query("page-size") String pageSize
     );
 
 }

@@ -1,6 +1,8 @@
 package com.finalproject.milestone_readbout.adapters;
 
 import android.content.Context;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,13 @@ import com.bumptech.glide.Glide;
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.models.ResultsModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class
 RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -39,7 +47,7 @@ RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
         holder.newsTitle.setText(resultsModelArrayList.get(position).getWebTitle());
         holder.newsDescription.setText(resultsModelArrayList.get(position).getDesc());
         holder.newsAuthor.setText(resultsModelArrayList.get(position).getSectionName());
-        holder.newsPublishedAt.setText(resultsModelArrayList.get(position).getWebPublicationDate());
+        holder.newsPublishedAt.setText(getTimeDifference(formatDate(resultsModelArrayList.get(position).getWebPublicationDate())));
         Glide.with(context).load(resultsModelArrayList.get(position).getImageUrl()).into(holder.imageView);
     }
 
@@ -64,5 +72,58 @@ RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
             cardView = itemView.findViewById(R.id.newsCard);
         }
     }
+
+    //--------------------------------------------------------------*/
+    /**-------- CODE TO FORMAT DATE INTO TIME IN NEWS CARD ---------*/
+    //--------------------------------------------------------------*/
+
+    private CharSequence getTimeDifference(String formattedDate) {
+        long currentTime = System.currentTimeMillis();
+        long publicationTime = getDateInMillis(formattedDate);
+        return DateUtils.getRelativeTimeSpanString(publicationTime, currentTime,
+                DateUtils.SECOND_IN_MILLIS);
+    }
+    private static long getDateInMillis(String formattedDate) {
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat("MMM d, yyyy  h:mm a");
+        long dateInMillis;
+        Date dateObject;
+        try {
+            dateObject = simpleDateFormat.parse(formattedDate);
+            dateInMillis = dateObject.getTime();
+            return dateInMillis;
+        } catch (ParseException e) {
+            Log.e("Problem parsing date", e.getMessage());
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private String formatDate(String dateStringUTC) {
+        // Parse the dateString into a Date object
+        SimpleDateFormat simpleDateFormat =
+                new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss'Z'");
+        Date dateObject = null;
+        try {
+            dateObject = simpleDateFormat.parse(dateStringUTC);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // Initialize a SimpleDateFormat instance and configure it to provide a more readable
+        // representation according to the given format, but still in UTC
+        SimpleDateFormat df = new SimpleDateFormat("MMM d, yyyy  h:mm a", Locale.ENGLISH);
+        String formattedDateUTC = df.format(dateObject);
+        // Convert UTC into Local time
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = null;
+        try {
+            date = df.parse(formattedDateUTC);
+            df.setTimeZone(TimeZone.getDefault());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return df.format(date);
+    }
+
 }
 

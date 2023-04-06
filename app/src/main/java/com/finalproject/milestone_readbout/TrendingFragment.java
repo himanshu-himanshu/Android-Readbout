@@ -50,7 +50,7 @@ public class TrendingFragment extends Fragment {
     }
 
     private void fetchNews() {
-        Utilities.getInterface().getGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS).enqueue(new Callback<GuardianResponse>() {
+        Utilities.getInterface().getGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, "20").enqueue(new Callback<GuardianResponse>() {
             @Override
             public void onResponse(Call<GuardianResponse> call, Response<GuardianResponse> response) {
                 if (response.isSuccessful()) {

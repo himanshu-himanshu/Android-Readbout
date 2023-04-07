@@ -3,16 +3,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#6A0768">
+    android:background="#1e1e1e">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Settings"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="32sp"
-        android:textColor="@color/white"
-        />
+        android:orientation="vertical">
 
+        <LinearLayout
+            style="@style/profileLinearLayout"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="30dp">
+
+            <ImageView
+                style="@style/userImageView"
+                android:contentDescription="image"/>
+
+            <LinearLayout
+                style="@style/infoLinearLayout">
+
+                <TextView
+                    android:id="@+id/settingUsername"
+                    style="@style/nameTextView" />
+
+                <TextView
+                    android:id="@+id/settingEmail"
+                    style="@style/emailTextView" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="Custom Settings"
+            style="@style/titleTextView"
+            android:paddingHorizontal="20dp" />
+
+        <LinearLayout
+            style="@style/settingLinearLayout"
+            android:id="@+id/orderByLayout">
+
+            <TextView
+                style="@style/settingTitle"
+                android:id="@+id/orderBy"
+                android:text="Order By" />
+
+            <TextView
+                style="@style/settingValue"
+                android:id="@+id/orderByValue"
+                android:text="Newest" />
+
+        </LinearLayout>
+        <LinearLayout
+            style="@style/settingLinearLayout"
+            android:id="@+id/numOfItemsLayout">
+
+            <TextView
+                style="@style/settingTitle"
+                android:id="@+id/numOfItems"
+                android:text="Number of items" />
+
+            <TextView
+                style="@style/settingValue"
+                android:id="@+id/numOfItemsValue"
+                android:text="20" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/settingLinearLayout"
+            android:id="@+id/textSizeLayout">
+
+            <TextView
+                style="@style/settingTitle"
+                android:id="@+id/textSize"
+                android:text="Text Size" />
+            <TextView
+                style="@style/settingValue"
+                android:id="@+id/textSizeValue"
+                android:text="Medium" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/titleTextView"
+            android:text="App Settings"
+            android:paddingHorizontal="20dp" />
+
+        <LinearLayout
+            style="@style/settingLinearLayout"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/settingTitle"
+                    android:text="Push Notification" />
+
+                <TextView
+                    style="@style/settingValue"
+                    android:text="Manage push notification settings" />
+            </LinearLayout>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                style="@style/notificationSwitch"
+                android:id="@+id/notificationSwitch" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>

@@ -17,7 +17,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:elevation">20sp</item>
         <item name="android:textColor">@color/secondary</item>
-        <item name="android:textSize">36dp</item>
+        <item name="android:textSize">36sp</item>
         <item name="android:fontFamily">@font/raleway_b</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -79,4 +79,89 @@
         <item name="android:textColor">#444444</item>
     </style>
 
+    <!--SETTINGS FRAGMENT STYLES-->
+    <style name="profileLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="infoLinearLayout" parent="mathParent">
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">20dp</item>
+    </style>
+
+    <style name="userImageView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:src">@drawable/user</item>
+    </style>
+
+    <style name="nameTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">#cccccc</item>
+        <item name="android:fontFamily">@font/raleway_b</item>
+        <item name="android:text">"Himanshu"</item>
+    </style>
+
+    <style name="emailTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#bbbbbb</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:text">"himanshu@yopmail.com"</item>
+    </style>
+
+    <style name="titleTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">#E8C4C4</item>
+        <item name="android:fontFamily">@font/raleway_b</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/line</item>
+    </style>
+
+    <style name="settingLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="settingTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">#dddddd</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="settingValue">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">#cccccc</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingTop">4dp</item>
+    </style>
+
+    <style name="notificationSwitch">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">5</item>
+        <item name="android:switchMinWidth">56dp</item>
+        <item name="android:height">48dp</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingTop">4dp</item>
+    </style>
 </resources>

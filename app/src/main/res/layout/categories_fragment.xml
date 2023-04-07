@@ -40,6 +40,7 @@
 
                 <TextView
                     style="@style/cardText"
+                    android:id="@+id/entertainmentText"
                     android:text="@string/entertainment" />
 
             </LinearLayout>
@@ -57,6 +58,7 @@
 
                 <TextView
                     android:text="@string/sports"
+                    android:id="@+id/sportsText"
                     style="@style/cardText" />
 
             </LinearLayout>
@@ -81,6 +83,7 @@
 
                 <TextView
                     style="@style/cardText"
+                    android:id="@+id/scienceText"
                     android:text="@string/science" />
 
             </LinearLayout>
@@ -94,11 +97,12 @@
                     android:layout_width="70sp"
                     android:layout_height="70sp"
                     android:src="@drawable/health"
-                    android:contentDescription="@string/health"/>
+                    android:contentDescription="@string/environment"/>
 
                 <TextView
+                    android:id="@+id/environmentText"
                     style="@style/cardText"
-                    android:text="@string/health" />
+                    android:text="@string/environment" />
 
             </LinearLayout>
 
@@ -122,6 +126,7 @@
                     android:contentDescription="@string/business"/>
 
                 <TextView
+                    android:id="@+id/businessText"
                     style="@style/cardText"
                     android:text="@string/business" />
 
@@ -140,6 +145,7 @@
 
                 <TextView
                     style="@style/cardText"
+                    android:id="@+id/technologyText"
                     android:text="@string/tech" />
 
             </LinearLayout>

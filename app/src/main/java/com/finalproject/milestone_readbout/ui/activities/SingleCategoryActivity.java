@@ -1,59 +1,76 @@
-package com.finalproject.milestone_readbout;
+package com.finalproject.milestone_readbout.ui.activities;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.widget.TextView;
+
+import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.adapters.RecyclerAdapter;
 import com.finalproject.milestone_readbout.api.Utilities;
 import com.finalproject.milestone_readbout.models.GuardianResponse;
 import com.finalproject.milestone_readbout.models.ResultsModel;
 import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TrendingFragment extends Fragment {
+public class SingleCategoryActivity extends AppCompatActivity {
 
     ArrayList<ResultsModel> resultsModelArrayList;
-    RecyclerAdapter adapterSecond;
-    private RecyclerView recyclerViewTrending;
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.trending_fragment, null);
+    RecyclerAdapter adapter;
+    private RecyclerView recyclerViewCategory;
+    private String section;
+    private TextView headingTextView;
 
-        recyclerViewTrending = view.findViewById(R.id.trendingRecyclerView);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+
+        String sectionName = intent.getStringExtra("sectionName");
+
+        String heading = intent.getStringExtra("heading");
+
+        section = sectionName;
+
+        setContentView(R.layout.activity_single_category_news);
+
+        recyclerViewCategory = findViewById(R.id.recyclerView);
+
+        headingTextView = findViewById(R.id.heading);
+
+        headingTextView.setText(heading);
 
         resultsModelArrayList = new ArrayList<>();
 
-        recyclerViewTrending.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(this));
 
-        adapterSecond = new RecyclerAdapter(getContext(), resultsModelArrayList);
+        adapter = new RecyclerAdapter(this, resultsModelArrayList);
 
-        recyclerViewTrending.setAdapter(adapterSecond);
+        recyclerViewCategory.setAdapter(adapter);
 
         fetchNews();
-
-        return view;
     }
 
     private void fetchNews() {
-        Utilities.getInterface().getGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, "20").enqueue(new Callback<GuardianResponse>() {
+        Utilities.getInterface().getSectionGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, Constants.PAGE_SIZE, section).enqueue(new Callback<GuardianResponse>() {
             @Override
             public void onResponse(Call<GuardianResponse> call, Response<GuardianResponse> response) {
                 if (response.isSuccessful()) {
@@ -83,9 +100,6 @@ public class TrendingFragment extends Fragment {
                             String trailTextHtmlToText = null;
 
                             JSONObject fieldsObject = currentNews.getJSONObject("fields");
-                            //thumbnail = fieldsObject.getString("thumbnail");
-                            // For a given news, if it contains the key called "fields", extract JSONObject
-                            // associated with the key "fields"
 
                             if (currentNews.has("fields")) {
                                 // Extract the JSONObject associated with the key called "fields"
@@ -102,14 +116,12 @@ public class TrendingFragment extends Fragment {
                                 }
                             }
 
-                            // Create a new {@link News} object with the title and url from the JSON response.
                             ResultsModel gResponse = new ResultsModel(sectionName, webPublicationDate, webTitleHtmlToText, webUrl, fieldsObject, thumbnail, trailTextHtmlToText);
-
-                            // Add the new {@link News} to list of newsList.
                             resultsModelArrayList.add(gResponse);
                         }
 
-                        adapterSecond.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
+
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }

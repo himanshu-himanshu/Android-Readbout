@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.finalproject.milestone_readbout.ui.fragments.CategoriesFragment;
+import com.finalproject.milestone_readbout.ui.fragments.SavedNewsFragment;
+import com.finalproject.milestone_readbout.ui.fragments.SettingFragment;
+import com.finalproject.milestone_readbout.ui.fragments.TrendingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

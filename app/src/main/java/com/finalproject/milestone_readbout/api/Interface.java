@@ -14,4 +14,12 @@ public interface Interface {
             @Query("page-size") String pageSize
     );
 
+    @GET("search")
+    Call<GuardianResponse> getSectionGuardianNews(
+            @Query("api-key") String apikey,
+            @Query("show-fields") String showFields,
+            @Query("page-size") String pageSize,
+            @Query("section") String section
+    );
+
 }

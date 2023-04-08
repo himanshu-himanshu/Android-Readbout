@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--COMMON STYLES-->
+    <!--*************************************************-->
+    <!--*************** COMMON STYLES ****************-->
+    <!--*************************************************-->
     <style name="mathParent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -22,7 +24,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!--TRENDING FRAGMENT STYLES-->
+    <!--*************************************************-->
+    <!--*********** TRENDING FRAGMENT STYLES ************-->
+    <!--*************************************************-->
+
     <style name="trendingHeading" parent="heading">
         <item name="android:layout_marginTop">30dp</item>
         <item name="android:layout_marginBottom">20sp</item>
@@ -42,7 +47,10 @@
         <item name="android:layout_below">@id/linear</item>
     </style>
 
-    <!--CATEGORIES FRAGMENT STYLES-->
+    <!--*************************************************-->
+    <!--***********CATEGORIES FRAGMENT STYLES************-->
+    <!--*************************************************-->
+
     <style name="categoryRelative" parent="mathParent">
         <item name="android:background">@color/primary</item>
         <item name="android:gravity">center_horizontal</item>
@@ -85,7 +93,10 @@
         <item name="android:textColor">#444444</item>
     </style>
 
-    <!--SETTINGS FRAGMENT STYLES-->
+    <!--*************************************************-->
+    <!--*********** SETTING FRAGMENT STYLES ************-->
+    <!--*************************************************-->
+
     <style name="profileLinearLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -181,7 +192,106 @@
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:padding">20dp</item>
         <item name="android:background">@drawable/line</item>
-
     </style>
 
+    <!--*************************************************-->
+    <!--********** NEWS-DETAIL ACTIVITY STYLES **********-->
+    <!--*************************************************-->
+
+    <style name="newsDetailHeadingLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:id">@id/linear</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/line</item>
+    </style>
+
+    <style name="newsDetailBackImage" parent="mathParent">
+        <item name="android:src">@drawable/baseline_arrow_back_24</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">20</item>
+        <item name="android:paddingTop">6dp</item>
+    </style>
+
+    <style name="newsDetailLogoImage">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:src">@drawable/mic</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:paddingTop">4dp</item>
+    </style>
+
+    <style name="readboutHeading">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:id">@id/heading</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:text">Readbout</item>
+    </style>
+
+    <style name="newsTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">#dddddd</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:text">Title</item>
+    </style>
+
+    <style name="newsImageCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:radius">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:elevation">10dp</item>
+    </style>
+
+    <style name="newsImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/news</item>
+    </style>
+
+    <style name="newsDescriptionLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+
+    <style name="newsAuthor" parent="mathParent">
+        <item name="android:text">Author</item>
+        <item name="android:textColor">#A3FF00</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="newsDate" parent="mathParent">
+        <item name="android:text">Date</item>
+        <item name="android:textColor">#cccccc</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="newsBody" parent="mathParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">Body</item>
+        <item name="android:textColor">#cccccc</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
 </resources>

@@ -83,6 +83,8 @@ public class TrendingFragment extends Fragment {
                             String thumbnail = null;
                             String trailText = null;
                             String trailTextHtmlToText = null;
+                            String newsBody = null;
+                            String newsBodyHtmlToText = null;
 
                             JSONObject fieldsObject = currentNews.getJSONObject("fields");
 
@@ -99,9 +101,14 @@ public class TrendingFragment extends Fragment {
                                     trailText = fieldsObject.getString("trailText");
                                     trailTextHtmlToText = String.valueOf(Html.fromHtml(trailText, FROM_HTML_MODE_LEGACY));
                                 }
+                                // If there is the key called "trailText", extract the value for the key called "trailText"
+                                if (fieldsObject.has("body")) {
+                                    newsBody = fieldsObject.getString("body");
+                                    newsBodyHtmlToText = String.valueOf(Html.fromHtml(newsBody, FROM_HTML_MODE_LEGACY));
+                                }
                             }
 
-                            ResultsModel gResponse = new ResultsModel(sectionName, webPublicationDate, webTitleHtmlToText, webUrl, fieldsObject, thumbnail, trailTextHtmlToText);
+                            ResultsModel gResponse = new ResultsModel(sectionName, webPublicationDate, webTitleHtmlToText, webUrl, fieldsObject, thumbnail, trailTextHtmlToText, newsBodyHtmlToText);
                             resultsModelArrayList.add(gResponse);
                         }
 

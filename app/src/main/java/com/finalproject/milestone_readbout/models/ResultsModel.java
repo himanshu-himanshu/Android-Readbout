@@ -2,11 +2,11 @@ package com.finalproject.milestone_readbout.models;
 
 public class ResultsModel {
 
-    private String sectionName, webPublicationDate, webTitle, webUrl, imageUrl, desc;
+    private String sectionName, webPublicationDate, webTitle, webUrl, imageUrl, desc, body;
 
     private Object fields;
 
-    public ResultsModel(String sectionName, String webPublicationDate, String webTitle, String webUrl, Object fields,String imageUrl, String desc) {
+    public ResultsModel(String sectionName, String webPublicationDate, String webTitle, String webUrl, Object fields, String imageUrl, String desc, String body) {
         this.sectionName = sectionName;
         this.webPublicationDate = webPublicationDate;
         this.webTitle = webTitle;
@@ -14,7 +14,9 @@ public class ResultsModel {
         this.fields = fields;
         this.imageUrl = imageUrl;
         this.desc = desc;
+        this.body = body;
     }
+
 
     public String getSectionName() {
         return sectionName;
@@ -62,6 +64,14 @@ public class ResultsModel {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public Object getFields() {

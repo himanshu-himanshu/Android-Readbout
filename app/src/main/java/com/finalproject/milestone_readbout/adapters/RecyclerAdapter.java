@@ -44,15 +44,29 @@ RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, int position) {
-        holder.newsTitle.setText(resultsModelArrayList.get(position).getWebTitle());
-        holder.newsDescription.setText(resultsModelArrayList.get(position).getDesc());
-        holder.newsAuthor.setText(resultsModelArrayList.get(position).getSectionName());
+        String title = resultsModelArrayList.get(position).getWebTitle();
+        String desc = resultsModelArrayList.get(position).getDesc();
+        String author = resultsModelArrayList.get(position).getSectionName();
+        String date = resultsModelArrayList.get(position).getWebPublicationDate();
+        String imgUrl = resultsModelArrayList.get(position).getImageUrl();
+        String body = resultsModelArrayList.get(position).getBody();
+
+        holder.newsTitle.setText(title);
+        holder.newsDescription.setText(desc);
+        holder.newsAuthor.setText(author);
         holder.newsPublishedAt.setText(getTimeDifference(formatDate(resultsModelArrayList.get(position).getWebPublicationDate())));
-        Glide.with(context).load(resultsModelArrayList.get(position).getImageUrl()).into(holder.imageView);
+        Glide.with(context).load(imgUrl).into(holder.imageView);
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, NewsDetailActivity.class);
+                intent.putExtra("Title", title);
+                intent.putExtra("Description", desc);
+                intent.putExtra("Body", body);
+                intent.putExtra("Author", author);
+                intent.putExtra("Date", date);
+                intent.putExtra("ImageURL", imgUrl);
                 context.startActivity(intent);
             }
         });

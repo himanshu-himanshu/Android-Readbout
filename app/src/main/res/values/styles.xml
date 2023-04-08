@@ -36,6 +36,12 @@
         <item name="android:layout_below">@id/heading</item>
     </style>
 
+    <style name="singleCategoryRecyclerView" parent="mathParent">
+        <item name="android:padding">2dp</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:layout_below">@id/linear</item>
+    </style>
+
     <!--CATEGORIES FRAGMENT STYLES-->
     <style name="categoryRelative" parent="mathParent">
         <item name="android:background">@color/primary</item>
@@ -164,4 +170,18 @@
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingTop">4dp</item>
     </style>
+
+    <style name="settingSection">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:textColor">@color/secondary</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:background">@drawable/line</item>
+
+    </style>
+
 </resources>

@@ -1,6 +1,7 @@
 package com.finalproject.milestone_readbout.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.models.ResultsModel;
+import com.finalproject.milestone_readbout.ui.activities.NewsDetailActivity;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +49,13 @@ RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
         holder.newsAuthor.setText(resultsModelArrayList.get(position).getSectionName());
         holder.newsPublishedAt.setText(getTimeDifference(formatDate(resultsModelArrayList.get(position).getWebPublicationDate())));
         Glide.with(context).load(resultsModelArrayList.get(position).getImageUrl()).into(holder.imageView);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, NewsDetailActivity.class);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

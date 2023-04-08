@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.finalproject.milestone_readbout.R;
@@ -52,6 +53,8 @@ public class SingleCategoryActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_single_category_news);
 
+        ImageView backImage = findViewById(R.id.categoryBackImage);
+
         recyclerViewCategory = findViewById(R.id.recyclerView);
 
         headingTextView = findViewById(R.id.heading);
@@ -67,6 +70,11 @@ public class SingleCategoryActivity extends AppCompatActivity {
         recyclerViewCategory.setAdapter(adapter);
 
         fetchNews();
+
+        backImage.setOnClickListener(v -> {
+            this.finish();
+        });
+
     }
 
     private void fetchNews() {

@@ -14,6 +14,12 @@
         android:theme="@style/Theme.MilestoneReadbout"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.NewsDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.GeneralSettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.SingleCategoryActivity"
             android:exported="false" />
         <activity

@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -34,10 +37,20 @@ public class TrendingFragment extends Fragment {
     ArrayList<ResultsModel> resultsModelArrayList;
     RecyclerAdapter adapterSecond;
     private RecyclerView recyclerViewTrending;
+    ProgressBar progressBar;
+    TextView progressBarText;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.trending_fragment, null);
+
+        progressBar = view.findViewById(R.id.progressBar);
+
+        progressBarText = view.findViewById(R.id.progressBarText);
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        progressBarText.setVisibility(View.VISIBLE);
 
         recyclerViewTrending = view.findViewById(R.id.recyclerView);
 
@@ -113,6 +126,8 @@ public class TrendingFragment extends Fragment {
                         }
 
                         adapterSecond.notifyDataSetChanged();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        progressBarText.setVisibility(View.INVISIBLE);
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);

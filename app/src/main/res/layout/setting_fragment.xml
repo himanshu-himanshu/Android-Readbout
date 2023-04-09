@@ -85,7 +85,7 @@
 
                 <TextView
                     style="@style/settingValue"
-                    android:text="Manage push notification settings" />
+                    android:text="Get notifications from app" />
             </LinearLayout>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
@@ -105,7 +105,56 @@
                 android:orientation="vertical">
                 <TextView
                     style="@style/settingTitle"
+                    android:text="French" />
+
+                <TextView
+                    style="@style/settingValue"
+                    android:text="Set news language to french" />
+            </LinearLayout>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                style="@style/notificationSwitch"
+                android:id="@+id/languageSwitch" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/settingLinearLayout"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/settingTitle"
                     android:text="About Us" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_weight="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_arrow_forward_ios_24" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/settingLinearLayout"
+            android:id="@+id/logoutLinear"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/settingTitle"
+                    android:textColor="#F15A59"
+                    android:text="Logout" />
 
             </LinearLayout>
 

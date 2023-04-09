@@ -30,7 +30,6 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     SharedPreferences sharedpreferences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +70,8 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(getBaseContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             editor.putString("loggedUserID", user.getUid());
+                            editor.apply();
+                            editor.commit();
                             saveToDatabase(usernameText.getText().toString(), emailInputText.getText().toString(), passwordInputText.getText().toString(), user.getUid());
                         } else {
                             // If sign in fails, display a message to the user.
@@ -90,12 +91,17 @@ public class SignupActivity extends AppCompatActivity {
         user.put("username", username);
         user.put("email", email);
         user.put("darkMode", true);
+        user.put("french", false);
+        user.put("pageSize", "20");
+        user.put("orderBy", "newest");
+        user.put("allowNotifications", true);
 
         db.collection("users").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Log.e("Signup Data Saving", "Saved to firebase");
+                    Toast.makeText(getApplicationContext(), "uid from pref" + sharedpreferences.getString("loggedUserID", ""), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 } else {

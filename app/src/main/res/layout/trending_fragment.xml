@@ -9,6 +9,24 @@
         android:text="@string/trendingHeading"
         android:id="@+id/heading" />
 
+    <ProgressBar
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/progressBar"
+        android:foregroundGravity="center"
+        android:layout_centerInParent="true"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/progressBarText"
+        android:text="Fetching News..."
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:textColor="@color/secondary"
+        android:layout_marginTop="90dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         style="@style/trendingRecyclerView" />

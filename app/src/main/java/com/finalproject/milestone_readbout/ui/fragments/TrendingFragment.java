@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,11 @@ import com.finalproject.milestone_readbout.api.Utilities;
 import com.finalproject.milestone_readbout.models.GuardianResponse;
 import com.finalproject.milestone_readbout.models.ResultsModel;
 import com.finalproject.milestone_readbout.utils.Constants;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,10 +45,26 @@ public class TrendingFragment extends Fragment {
     private RecyclerView recyclerViewTrending;
     ProgressBar progressBar;
     TextView progressBarText;
+    private String loggedUserID;
+    private FirebaseFirestore db;
+    String language = "en";
+    Boolean isFrench;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.trending_fragment, null);
+
+        db = FirebaseFirestore.getInstance();
+
+        Bundle data = getArguments();
+
+        if (data != null) {
+//            Toast.makeText(getContext(), "Bundle data", Toast.LENGTH_SHORT).show();
+            loggedUserID = data.getString("loggedUserID");
+            fetchDataFromFirebase(loggedUserID);
+        } else {
+            Toast.makeText(getContext(), "Bundle data Null", Toast.LENGTH_SHORT).show();
+        }
 
         progressBar = view.findViewById(R.id.progressBar);
 
@@ -62,13 +84,35 @@ public class TrendingFragment extends Fragment {
 
         recyclerViewTrending.setAdapter(adapterSecond);
 
-        fetchNews();
+        //fetchNews();
 
         return view;
     }
 
+    private void fetchDataFromFirebase(String uid) {
+        //Toast.makeText(getContext(), "Trending fetch called", Toast.LENGTH_SHORT).show();
+        DocumentReference doc = db.collection("users").document(uid);
+        doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    isFrench = documentSnapshot.getBoolean("french");
+                    language = isFrench ? "fr" : "en";
+                    fetchNews();
+                } else {
+                    Toast.makeText(getContext(), "Data not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Failed to fetch data from firebase", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void fetchNews() {
-        Utilities.getInterface().getGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, Constants.PAGE_SIZE).enqueue(new Callback<GuardianResponse>() {
+        Utilities.getInterface().getGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, Constants.PAGE_SIZE, language).enqueue(new Callback<GuardianResponse>() {
             @Override
             public void onResponse(Call<GuardianResponse> call, Response<GuardianResponse> response) {
                 if (response.isSuccessful()) {
@@ -77,7 +121,7 @@ public class TrendingFragment extends Fragment {
                         JSONObject responseJsonObject = jsonObject.getJSONObject("response");
                         JSONArray resultsJsonArray = responseJsonObject.getJSONArray("results");
 
-                        Log.e("RESULTS DATA: ", String.valueOf(resultsJsonArray));
+                        Log.e("RESULTS DATA", "CALLED" + language + isFrench);
 
                         for (int i = 0; i < resultsJsonArray.length(); i++) {
 

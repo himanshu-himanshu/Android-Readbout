@@ -7,11 +7,13 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface Interface {
+
     @GET("search")
     Call<GuardianResponse> getGuardianNews(
             @Query("api-key") String apikey,
             @Query("show-fields") String showFields,
-            @Query("page-size") String pageSize
+            @Query("page-size") String pageSize,
+            @Query("lang") String language
     );
 
     @GET("search")
@@ -19,7 +21,8 @@ public interface Interface {
             @Query("api-key") String apikey,
             @Query("show-fields") String showFields,
             @Query("page-size") String pageSize,
-            @Query("section") String section
+            @Query("section") String section,
+            @Query("lang") String language
     );
 
 }

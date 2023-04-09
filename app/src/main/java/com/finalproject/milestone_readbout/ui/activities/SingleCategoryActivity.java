@@ -2,16 +2,21 @@ package com.finalproject.milestone_readbout.ui.activities;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.adapters.RecyclerAdapter;
@@ -19,6 +24,11 @@ import com.finalproject.milestone_readbout.api.Utilities;
 import com.finalproject.milestone_readbout.models.GuardianResponse;
 import com.finalproject.milestone_readbout.models.ResultsModel;
 import com.finalproject.milestone_readbout.utils.Constants;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -38,12 +48,19 @@ public class SingleCategoryActivity extends AppCompatActivity {
     private RecyclerView recyclerViewCategory;
     private String section;
     private TextView headingTextView;
-
+    ProgressBar progressBar;
+    TextView progressBarText;
+    String language = "en";
+    Boolean isFrench;
+    String loggedUserID;
+    private FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
+
+        db = FirebaseFirestore.getInstance();
 
         String sectionName = intent.getStringExtra("sectionName");
 
@@ -52,6 +69,20 @@ public class SingleCategoryActivity extends AppCompatActivity {
         section = sectionName;
 
         setContentView(R.layout.activity_single_category_news);
+
+        SharedPreferences channel=this.getSharedPreferences("READBOUT_PREF", MODE_PRIVATE);
+
+        loggedUserID = channel.getString("loggedUserID","Default");
+
+        fetchDataFromFirebase(loggedUserID);
+
+        progressBar = findViewById(R.id.progressBar2);
+
+        progressBarText = findViewById(R.id.progressBarText2);
+
+        progressBar.setVisibility(View.VISIBLE);
+
+        progressBarText.setVisibility(View.VISIBLE);
 
         ImageView backImage = findViewById(R.id.categoryBackImage);
 
@@ -69,7 +100,7 @@ public class SingleCategoryActivity extends AppCompatActivity {
 
         recyclerViewCategory.setAdapter(adapter);
 
-        fetchNews();
+        //fetchNews();
 
         backImage.setOnClickListener(v -> {
             this.finish();
@@ -77,8 +108,30 @@ public class SingleCategoryActivity extends AppCompatActivity {
 
     }
 
+    private void fetchDataFromFirebase(String uid) {
+        //Toast.makeText(getContext(), "Trending fetch called", Toast.LENGTH_SHORT).show();
+        DocumentReference doc = db.collection("users").document(uid);
+        doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    isFrench = documentSnapshot.getBoolean("french");
+                    language = isFrench ? "fr" : "en";
+                    fetchNews();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Data not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Failed to fetch data from firebase", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void fetchNews() {
-        Utilities.getInterface().getSectionGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, Constants.PAGE_SIZE, section).enqueue(new Callback<GuardianResponse>() {
+        Utilities.getInterface().getSectionGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, Constants.PAGE_SIZE, section, language).enqueue(new Callback<GuardianResponse>() {
             @Override
             public void onResponse(Call<GuardianResponse> call, Response<GuardianResponse> response) {
                 if (response.isSuccessful()) {
@@ -136,6 +189,15 @@ public class SingleCategoryActivity extends AppCompatActivity {
                         }
 
                         adapter.notifyDataSetChanged();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        progressBarText.setVisibility(View.INVISIBLE);
+
+                        if(resultsJsonArray.length() == 0 ) {
+                            progressBarText.setText("Sorry, no news exits!");
+                            progressBarText.setVisibility(View.VISIBLE);
+                            recyclerViewCategory.setVisibility(View.INVISIBLE);
+                        }
+
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);

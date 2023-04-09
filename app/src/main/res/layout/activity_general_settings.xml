@@ -25,7 +25,7 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="34dp"
                 android:id="@+id/backImage"
                 android:src="@drawable/baseline_arrow_back_24"
                 android:layout_gravity="center"
@@ -45,49 +45,49 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            style="@style/settingLinearLayout"
-            android:background="@drawable/round_white_back">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            style="@style/settingLinearLayout"-->
+<!--            android:background="@drawable/round_white_back">-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Text Size"
-                style="@style/settingTitle"
-                />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Text Size"-->
+<!--                style="@style/settingTitle"-->
+<!--                />-->
 
-            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/textSizeRadioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+<!--            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--                android:id="@+id/textSizeRadioGroup"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_marginTop="10dp">-->
 
-                <RadioButton android:id="@+id/rbSmallText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Small"
-                    android:textColor="@color/white"
-                    android:layout_marginRight="10dp" />
+<!--                <RadioButton android:id="@+id/rbSmallText"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Small"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:layout_marginRight="10dp" />-->
 
-                <RadioButton android:id="@+id/rbMediumText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Medium"
-                    android:textColor="@color/white"
-                    android:checked="true"
-                    android:layout_marginRight="10dp" />
+<!--                <RadioButton android:id="@+id/rbMediumText"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Medium"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:checked="true"-->
+<!--                    android:layout_marginRight="10dp" />-->
 
-                <RadioButton android:id="@+id/rbLargeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Medium"
-                    android:textColor="@color/white"/>
-            </RadioGroup>
-        </LinearLayout>
+<!--                <RadioButton android:id="@+id/rbLargeText"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Medium"-->
+<!--                    android:textColor="@color/white"/>-->
+<!--            </RadioGroup>-->
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"

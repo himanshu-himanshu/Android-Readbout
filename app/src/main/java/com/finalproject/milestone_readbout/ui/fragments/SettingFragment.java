@@ -8,9 +8,11 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +37,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.ktx.Firebase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SettingFragment extends Fragment {
     private FirebaseFirestore db;
     LinearLayout generalLinearLayout, logoutLinearLayout;
@@ -51,6 +56,7 @@ public class SettingFragment extends Fragment {
         Bundle data = getArguments();
 
         if (data != null) {
+            //Toast.makeText(getContext(), "Bundle data", Toast.LENGTH_SHORT).show();
             loggedUserID = data.getString("loggedUserID");
             fetchDataFromFirebase(loggedUserID);
         }
@@ -93,6 +99,23 @@ public class SettingFragment extends Fragment {
             AlertDialog alert11 = builder1.create();
             alert11.show();
         });
+
+        notification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                saveDataToFirebase();
+            }
+        });
+
+        french.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // do something, the isChecked will be
+                // true if the switch is in the On position
+                saveDataToFirebase();
+            }
+        });
+
         return view;
     }
 
@@ -118,6 +141,23 @@ public class SettingFragment extends Fragment {
                 Toast.makeText(getContext(), "Failed to fetch data from firebase", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void saveDataToFirebase() {
+        Map<String, Object> user = new HashMap<>();
+        user.put("french", french.isChecked());
+        user.put("allowNotifications", notification.isChecked());
+        db.collection("users").document(loggedUserID).update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.e("Setting Data Saving", "Saved to firebase");
+                } else {
+                    Log.e("Signup Data Saving", "Error in saving");
+                }
+            }
+        });
+
     }
 }
 

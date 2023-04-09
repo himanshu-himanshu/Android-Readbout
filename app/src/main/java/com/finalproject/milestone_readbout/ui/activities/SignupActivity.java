@@ -92,7 +92,7 @@ public class SignupActivity extends AppCompatActivity {
         user.put("email", email);
         user.put("darkMode", true);
         user.put("french", false);
-        user.put("pageSize", "20");
+        user.put("pageSize", 20);
         user.put("orderBy", "newest");
         user.put("allowNotifications", true);
 

@@ -24,26 +24,26 @@ public class GeneralSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_general_settings);
         ImageView backImage = findViewById(R.id.backImage);
 
-        textRadioGroup = findViewById(R.id.textSizeRadioGroup);
+        //textRadioGroup = findViewById(R.id.textSizeRadioGroup);
 
-        textRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rbSmallText:
-                        Toast.makeText(getApplicationContext(), "Small is selected", Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.rbMediumText:
-                        Toast.makeText(getApplicationContext(), "Medium is selected", Toast.LENGTH_LONG).show();
-                        break;
-                    case R.id.rbLargeText:
-                        Toast.makeText(getApplicationContext(), "Large is selected", Toast.LENGTH_LONG).show();
-                        break;
-                    default:
-                        return;
-                }
-            }
-        });
+//        textRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                switch (checkedId) {
+//                    case R.id.rbSmallText:
+//                        Toast.makeText(getApplicationContext(), "Small is selected", Toast.LENGTH_LONG).show();
+//                        break;
+//                    case R.id.rbMediumText:
+//                        Toast.makeText(getApplicationContext(), "Medium is selected", Toast.LENGTH_LONG).show();
+//                        break;
+//                    case R.id.rbLargeText:
+//                        Toast.makeText(getApplicationContext(), "Large is selected", Toast.LENGTH_LONG).show();
+//                        break;
+//                    default:
+//                        return;
+//                }
+//            }
+//        });
 
 
         backImage.setOnClickListener(v -> {

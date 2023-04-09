@@ -29,26 +29,39 @@ public class MainActivity extends AppCompatActivity {
         String loggedUserID = sharedpreferences.getString("loggedUserID", "");
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         bottomNavigationView = findViewById(R.id.bottomTab);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new TrendingFragment()).commit();
+        Bundle bundle = new Bundle();
+        FragmentTransaction fragmentTransaction;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        bundle.putString("loggedUserID", loggedUserID);
+        TrendingFragment trendingFragment = new TrendingFragment();
+        trendingFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.container, trendingFragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Bundle bundle = new Bundle();
+                FragmentTransaction fragmentTransaction;
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                bundle.putString("loggedUserID", loggedUserID);
+
                 switch (item.getItemId()) {
                     case R.id.home:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new TrendingFragment()).commit();
+                        TrendingFragment trendingFragment = new TrendingFragment();
+                        trendingFragment.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.container, trendingFragment).commit();
                         return true;
                     case R.id.categories:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, new CategoriesFragment()).commit();
                         return true;
                     case R.id.saved:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, new SavedNewsFragment()).commit();
+                        SavedNewsFragment savedNewsFragment = new SavedNewsFragment();
+                        savedNewsFragment.setArguments(bundle);
+                        fragmentTransaction.replace(R.id.container, savedNewsFragment).commit();
+                        //getSupportFragmentManager().beginTransaction().replace(R.id.container, new SavedNewsFragment()).commit();
                         return true;
                     case R.id.setting:
                         SettingFragment settingFragment = new SettingFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("loggedUserID", loggedUserID);
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         settingFragment.setArguments(bundle);
                         fragmentTransaction.replace(R.id.container, settingFragment).commit();
                         return true;

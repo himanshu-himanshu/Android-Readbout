@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.finalproject.milestone_readbout.MainActivity;
 import com.finalproject.milestone_readbout.R;
+import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -20,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
+
+    /** Variable Initialization */
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     SharedPreferences sharedpreferences;
@@ -41,32 +44,40 @@ public class LoginActivity extends AppCompatActivity {
         passwordInputText.setText("himanshu");
         loginButton = findViewById(R.id.loginBtn);
         signupLink = findViewById(R.id.registerNow);
-        sharedpreferences = getSharedPreferences("READBOUT_PREF", MODE_PRIVATE);
+
+        /** Shared Preferences to store logged user ID received from Firebase */
+        sharedpreferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
+        /** Navigate to SignUp Activity on clicking signup link on login page */
         signupLink.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
             startActivity(intent);
         });
 
+        /** Handles click on login button */
         loginButton.setOnClickListener(v -> {
             if (isEmpty(emailInputText.getText()) || isEmpty(passwordInputText.getText())) {
-                Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, Constants.EMPTY_FIELDS_ERROR, Toast.LENGTH_SHORT).show();
             } else {
                 mAuth.signInWithEmailAndPassword(emailInputText.getText().toString(), passwordInputText.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(getBaseContext(), "Login Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), Constants.LOGIN_SUCCESSFUL, Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            editor.putString("loggedUserID", user.getUid());
+
+                            // Store User ID into shared preference
+                            editor.putString(Constants.LOGGED_USER_ID, user.getUid());
                             editor.apply();
                             editor.commit();
+
+                            // Navigate to MainActivity after logging in
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(getBaseContext(), "Login Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), Constants.LOGIN_FAILED, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

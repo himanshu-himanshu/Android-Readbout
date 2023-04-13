@@ -30,25 +30,27 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TrendingFragment extends Fragment {
-
-    ArrayList<ResultsModel> resultsModelArrayList;
-    RecyclerAdapter adapterSecond;
+    private ArrayList<ResultsModel> resultsModelArrayList;
+    private RecyclerAdapter adapterSecond;
     private RecyclerView recyclerViewTrending;
-    ProgressBar progressBar;
-    TextView progressBarText;
-    private String loggedUserID;
+    private ProgressBar progressBar;
+    private TextView progressBarText;
+    private String loggedUserID, language = "en";
     private FirebaseFirestore db;
-    String language = "en";
-    Boolean isFrench;
+    private Boolean isFrench;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,9 +59,7 @@ public class TrendingFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         Bundle data = getArguments();
-
         if (data != null) {
-//            Toast.makeText(getContext(), "Bundle data", Toast.LENGTH_SHORT).show();
             loggedUserID = data.getString("loggedUserID");
             fetchDataFromFirebase(loggedUserID);
         } else {
@@ -67,24 +67,16 @@ public class TrendingFragment extends Fragment {
         }
 
         progressBar = view.findViewById(R.id.progressBar);
-
         progressBarText = view.findViewById(R.id.progressBarText);
-
-        progressBar.setVisibility(View.VISIBLE);
-
-        progressBarText.setVisibility(View.VISIBLE);
-
         recyclerViewTrending = view.findViewById(R.id.recyclerView);
 
+        progressBar.setVisibility(View.VISIBLE);
+        progressBarText.setVisibility(View.VISIBLE);
+
         resultsModelArrayList = new ArrayList<>();
-
         recyclerViewTrending.setLayoutManager(new LinearLayoutManager(getContext()));
-
         adapterSecond = new RecyclerAdapter(getContext(), resultsModelArrayList);
-
         recyclerViewTrending.setAdapter(adapterSecond);
-
-        //fetchNews();
 
         return view;
     }
@@ -178,6 +170,7 @@ public class TrendingFragment extends Fragment {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<GuardianResponse> call, Throwable t) {
             }

@@ -57,18 +57,15 @@ RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
         holder.newsPublishedAt.setText(getTimeDifference(formatDate(resultsModelArrayList.get(position).getWebPublicationDate())));
         Glide.with(context).load(imgUrl).into(holder.imageView);
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, NewsDetailActivity.class);
-                intent.putExtra("Title", title);
-                intent.putExtra("Description", desc);
-                intent.putExtra("Body", body);
-                intent.putExtra("Author", author);
-                intent.putExtra("Date", date);
-                intent.putExtra("ImageURL", imgUrl);
-                context.startActivity(intent);
-            }
+        holder.cardView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, NewsDetailActivity.class);
+            intent.putExtra("Title", title);
+            intent.putExtra("Description", desc);
+            intent.putExtra("Body", body);
+            intent.putExtra("Author", author);
+            intent.putExtra("Date", date);
+            intent.putExtra("ImageURL", imgUrl);
+            context.startActivity(intent);
         });
     }
 

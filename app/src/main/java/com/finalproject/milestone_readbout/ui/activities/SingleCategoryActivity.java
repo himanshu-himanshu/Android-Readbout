@@ -42,46 +42,35 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SingleCategoryActivity extends AppCompatActivity {
-
     ArrayList<ResultsModel> resultsModelArrayList;
     RecyclerAdapter adapter;
     private RecyclerView recyclerViewCategory;
     private String section;
-    private TextView headingTextView;
+    private TextView headingTextView, progressBarText;
     ProgressBar progressBar;
-    TextView progressBarText;
-    String language = "en";
+    String loggedUserID, language = "en";
     Boolean isFrench;
-    String loggedUserID;
     private FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-
         db = FirebaseFirestore.getInstance();
-
         String sectionName = intent.getStringExtra("sectionName");
-
         String heading = intent.getStringExtra("heading");
-
         section = sectionName;
-
         setContentView(R.layout.activity_single_category_news);
 
-        SharedPreferences channel=this.getSharedPreferences("READBOUT_PREF", MODE_PRIVATE);
-
-        loggedUserID = channel.getString("loggedUserID","Default");
+        SharedPreferences channel = this.getSharedPreferences("READBOUT_PREF", MODE_PRIVATE);
+        loggedUserID = channel.getString("loggedUserID", "Default");
 
         fetchDataFromFirebase(loggedUserID);
 
         progressBar = findViewById(R.id.progressBar2);
-
         progressBarText = findViewById(R.id.progressBarText2);
-
         progressBar.setVisibility(View.VISIBLE);
-
         progressBarText.setVisibility(View.VISIBLE);
 
         ImageView backImage = findViewById(R.id.categoryBackImage);
@@ -192,13 +181,11 @@ public class SingleCategoryActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.INVISIBLE);
                         progressBarText.setVisibility(View.INVISIBLE);
 
-                        if(resultsJsonArray.length() == 0 ) {
+                        if (resultsJsonArray.length() == 0) {
                             progressBarText.setText("Sorry, no news exits!");
                             progressBarText.setVisibility(View.VISIBLE);
                             recyclerViewCategory.setVisibility(View.INVISIBLE);
                         }
-
-
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }

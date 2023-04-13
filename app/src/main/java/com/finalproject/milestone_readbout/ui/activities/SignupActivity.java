@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.finalproject.milestone_readbout.MainActivity;
 import com.finalproject.milestone_readbout.R;
+import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -27,6 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
+
+    /** Variable initialization */
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     SharedPreferences sharedpreferences;
@@ -50,32 +53,39 @@ public class SignupActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.signupBtn);
         loginLink = findViewById(R.id.loginNow);
 
-        sharedpreferences = getSharedPreferences("READBOUT_PREF", MODE_PRIVATE);
+        /** Shared Preferences to store logged user ID received from Firebase */
+        sharedpreferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
 
+        /** Navigate to Login Activity on clicking login link on signup page */
         loginLink.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         });
 
+        /** Handles click on signup button */
         signupButton.setOnClickListener(v -> {
             if (isEmpty(emailInputText.getText()) || isEmpty(passwordInputText.getText())) {
-                Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, Constants.EMPTY_FIELDS_ERROR, Toast.LENGTH_SHORT).show();
             } else {
                 mAuth.createUserWithEmailAndPassword(emailInputText.getText().toString(), passwordInputText.getText().toString()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(getBaseContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), Constants.REGISTRATION_SUCCESSFUL, Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            editor.putString("loggedUserID", user.getUid());
+
+                            // Store User ID into shared preference
+                            editor.putString(Constants.LOGGED_USER_ID, user.getUid());
                             editor.apply();
                             editor.commit();
+
+                            // Save data to firebase store
                             saveToDatabase(usernameText.getText().toString(), emailInputText.getText().toString(), passwordInputText.getText().toString(), user.getUid());
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(getBaseContext(), "Registration Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getBaseContext(), Constants.REGISTRATION_FAILED, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -83,10 +93,12 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    /** Function to save data to firebase after successful registration */
     private void saveToDatabase(String username, String email, String password, String uid) {
 
         Map<String, Object> user = new HashMap<>();
 
+        // Store data into map object
         user.put("uid", uid);
         user.put("username", username);
         user.put("email", email);
@@ -96,6 +108,7 @@ public class SignupActivity extends AppCompatActivity {
         user.put("orderBy", "newest");
         user.put("allowNotifications", true);
 
+        // Add data into database
         db.collection("users").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

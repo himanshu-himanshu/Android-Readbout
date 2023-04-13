@@ -4,6 +4,8 @@ import static android.text.TextUtils.isEmpty;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.finalproject.milestone_readbout.MainActivity;
 import com.finalproject.milestone_readbout.R;
+import com.finalproject.milestone_readbout.notification.NotificationDecorator;
 import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,12 +29,17 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     SharedPreferences sharedpreferences;
+    private NotificationManager notificationMgr;
+    private NotificationDecorator notificationDecorator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+
+        notificationMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationDecorator = new NotificationDecorator(this, notificationMgr);
 
         AppCompatEditText emailInputText;
         AppCompatEditText passwordInputText;
@@ -71,6 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString(Constants.LOGGED_USER_ID, user.getUid());
                             editor.apply();
                             editor.commit();
+
+                            /** Send notification messages */
+                            notificationDecorator.displayExpandableNotification(Constants.LOGIN_SUCCESSFUL, "Welcome Back, enjoy latest news!");
 
                             // Navigate to MainActivity after logging in
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

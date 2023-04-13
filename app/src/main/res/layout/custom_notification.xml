@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+    <!-- custom notification -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/notificationImage"
+            android:layout_height="wrap_content"
+            android:layout_width="230dp"
+            android:src="@drawable/mic"
+            android:layout_weight="4"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/notificationTitle"
+                android:textSize="18sp"
+                android:textColor="#ED1E64"
+                android:textStyle="bold"
+                android:text="Hello"/>
+
+            <TextView
+                android:id="@+id/notificationBody"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textColor="@color/primary"
+                android:text="Base Text"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

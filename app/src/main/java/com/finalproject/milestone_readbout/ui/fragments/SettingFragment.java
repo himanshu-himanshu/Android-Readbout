@@ -31,6 +31,7 @@ public class SettingFragment extends Fragment {
     TextView emailText;
     SwitchMaterial notification, french;
     private String loggedUserID;
+    boolean allowNotifications;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class SettingFragment extends Fragment {
             loggedUserID = data.getString(Constants.LOGGED_USER_ID);
             fetchDataFromFirebase(loggedUserID);
         }
+
         generalLinearLayout = view.findViewById(R.id.generalTab);
         logoutLinearLayout = view.findViewById(R.id.logoutLinear);
         usernameText = view.findViewById(R.id.settingUsername);
@@ -88,7 +90,7 @@ public class SettingFragment extends Fragment {
             if (documentSnapshot.exists()) {
                 usernameText.setText(documentSnapshot.getString("username"));
                 emailText.setText(documentSnapshot.getString("email"));
-                boolean allowNotifications = documentSnapshot.getBoolean("allowNotifications");
+                allowNotifications = documentSnapshot.getBoolean("allowNotifications");
                 boolean isFrench = documentSnapshot.getBoolean("french");
                 notification.setChecked(allowNotifications);
                 french.setChecked(isFrench);

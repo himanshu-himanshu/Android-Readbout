@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.notification.NotificationDecorator;
 import com.finalproject.milestone_readbout.utils.Constants;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -25,7 +27,6 @@ public class NewsDetailActivity extends AppCompatActivity {
     String title, desc, body, author, date, imageUrl, webUrl, loggedUserID;
     NotificationManager notificationMgr;
     NotificationDecorator notificationDecorator;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,8 @@ public class NewsDetailActivity extends AppCompatActivity {
         ImageView newsImage = findViewById(R.id.newsImage);
         ImageView backImage = findViewById(R.id.categoryBackImage);
         ImageView savedButton = findViewById(R.id.saveNewsButton);
+        ImageView getOnWeb = findViewById(R.id.getOnWeb);
+        MaterialButton readOnWebButton = findViewById(R.id.readOnWebButton);
 
         Glide.with(this).load(imageUrl).into(newsImage);
 
@@ -65,8 +68,19 @@ public class NewsDetailActivity extends AppCompatActivity {
         newsBody.setText(body);
 
         backImage.setOnClickListener(v -> this.finish());
-
         savedButton.setOnClickListener(v -> saveDataToFirebase());
+
+        readOnWebButton.setOnClickListener(v -> {
+            Uri uri = Uri.parse(webUrl);
+            Intent intent12 = new Intent(Intent.ACTION_VIEW,uri);
+            startActivity(intent12);
+        });
+
+        getOnWeb.setOnClickListener(v -> {
+            Uri uri = Uri.parse(webUrl);
+            Intent intent1 = new Intent(Intent.ACTION_VIEW,uri);
+            startActivity(intent1);
+        });
     }
 
     private void saveDataToFirebase() {
@@ -84,7 +98,9 @@ public class NewsDetailActivity extends AppCompatActivity {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     i++;
                     if (document.getString("webUrl").equals(webUrl)) {
-                        alreadyInList = true;
+                        if(document.getString("userID").equals(loggedUserID)) {
+                            alreadyInList = true;
+                        }
                     }
                 }
                 if(!alreadyInList || i == 0) {

@@ -22,10 +22,16 @@
             >
             <TextView style="@style/readboutHeading"
                 android:gravity="center"
-                android:layout_weight="1"/>
+                android:layout_weight="20"/>
             <ImageView
                 style="@style/newsDetailLogoImage"
                 android:id="@+id/saveNewsButton"
+                android:layout_weight="1"
+                />
+            <ImageView
+                style="@style/newsDetailLogoImage"
+                android:src="@drawable/baseline_ios_share_24"
+                android:id="@+id/getOnWeb"
                 android:layout_weight="1"
                 />
         </LinearLayout>
@@ -70,6 +76,17 @@
                 android:id="@+id/newsBody"
                 style="@style/newsBody"
                 android:justificationMode="inter_word"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:id="@+id/readOnWebButton"
+                android:backgroundTint="#263A29"
+                android:text="Read On Web"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                />
 
         </LinearLayout>
     </ScrollView>

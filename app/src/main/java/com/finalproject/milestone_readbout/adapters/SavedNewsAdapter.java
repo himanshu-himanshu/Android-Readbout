@@ -2,6 +2,7 @@ package com.finalproject.milestone_readbout.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,17 +49,11 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
         holder.newsDescription.setText(desc);
         Glide.with(context).load(imgUrl).into(holder.imageView);
 
-//        holder.cardView.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, NewsDetailActivity.class);
-//            intent.putExtra("Title", title);
-//            intent.putExtra("Description", desc);
-//            intent.putExtra("Body", body);
-//            intent.putExtra("Author", author);
-//            intent.putExtra("Date", date);
-//            intent.putExtra("ImageURL", imgUrl);
-//            intent.putExtra("webUrl", webUrl);
-//            context.startActivity(intent);
-//        });
+        holder.cardView.setOnClickListener(v -> {
+            Uri uri = Uri.parse(webUrl);
+            Intent intent= new Intent(Intent.ACTION_VIEW,uri);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -67,11 +62,9 @@ public class SavedNewsAdapter extends RecyclerView.Adapter<SavedNewsAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         TextView newsTitle, newsDescription;
         CardView cardView;
         ImageView imageView;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             newsTitle = itemView.findViewById(R.id.savedNewsTitle);

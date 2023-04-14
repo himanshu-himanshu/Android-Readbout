@@ -26,6 +26,7 @@ import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.ui.activities.GeneralSettingsActivity;
 import com.finalproject.milestone_readbout.ui.activities.LoginActivity;
 import com.finalproject.milestone_readbout.ui.activities.SingleCategoryActivity;
+import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,8 +57,7 @@ public class SettingFragment extends Fragment {
         Bundle data = getArguments();
 
         if (data != null) {
-            //Toast.makeText(getContext(), "Bundle data", Toast.LENGTH_SHORT).show();
-            loggedUserID = data.getString("loggedUserID");
+            loggedUserID = data.getString(Constants.LOGGED_USER_ID);
             fetchDataFromFirebase(loggedUserID);
         }
         generalLinearLayout = view.findViewById(R.id.generalTab);
@@ -69,6 +69,7 @@ public class SettingFragment extends Fragment {
 
         generalLinearLayout.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), GeneralSettingsActivity.class);
+            intent.putExtra(Constants.LOGGED_USER_ID, loggedUserID);
             startActivity(intent);
         });
 
@@ -157,7 +158,6 @@ public class SettingFragment extends Fragment {
                 }
             }
         });
-
     }
 }
 

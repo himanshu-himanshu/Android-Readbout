@@ -217,7 +217,7 @@
     <style name="newsDetailLogoImage">
         <item name="android:layout_width">30dp</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:src">@drawable/mic</item>
+        <item name="android:src">@drawable/baseline_favorite_border_24</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:paddingTop">4dp</item>
@@ -232,7 +232,7 @@
         <item name="android:textColor">@color/secondary</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/montserrat</item>
-        <item name="android:text">Readbout</item>
+        <item name="android:text">News Detail</item>
     </style>
 
     <style name="newsTitle">

@@ -50,6 +50,7 @@ RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
         String date = resultsModelArrayList.get(position).getWebPublicationDate();
         String imgUrl = resultsModelArrayList.get(position).getImageUrl();
         String body = resultsModelArrayList.get(position).getBody();
+        String webUrl = resultsModelArrayList.get(position).getWebUrl();
 
         holder.newsTitle.setText(title);
         holder.newsDescription.setText(desc);
@@ -65,6 +66,7 @@ RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
             intent.putExtra("Author", author);
             intent.putExtra("Date", date);
             intent.putExtra("ImageURL", imgUrl);
+            intent.putExtra("webUrl", webUrl);
             context.startActivity(intent);
         });
     }

@@ -16,11 +16,15 @@ import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.notification.NotificationDecorator;
 import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
@@ -72,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(getBaseContext(), Constants.LOGIN_SUCCESSFUL, Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
 
                             // Store User ID into shared preference
@@ -80,8 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.apply();
                             editor.commit();
 
-                            /** Send notification messages */
-                            notificationDecorator.displayExpandableNotification(Constants.LOGIN_SUCCESSFUL, "Welcome Back, enjoy latest news!");
+                            fetchDataFromFirebase(user.getUid());
 
                             // Navigate to MainActivity after logging in
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -92,6 +94,28 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+    }
+    private void fetchDataFromFirebase(String uid) {
+        DocumentReference doc = db.collection("users").document(uid);
+        doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    boolean allowNotifications = documentSnapshot.getBoolean("allowNotifications");
+                    if(allowNotifications) {
+                        /** Send notification messages */
+                        notificationDecorator.displayExpandableNotification(Constants.LOGIN_SUCCESSFUL, "Welcome Back, enjoy latest news!");
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Data not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Failed to fetch data from firebase", Toast.LENGTH_SHORT).show();
             }
         });
     }

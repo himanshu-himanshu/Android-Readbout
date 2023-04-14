@@ -20,8 +20,14 @@
             android:orientation="horizontal"
             android:gravity="center"
             >
-            <TextView style="@style/readboutHeading" />
-            <ImageView style="@style/newsDetailLogoImage"/>
+            <TextView style="@style/readboutHeading"
+                android:gravity="center"
+                android:layout_weight="1"/>
+            <ImageView
+                style="@style/newsDetailLogoImage"
+                android:id="@+id/saveNewsButton"
+                android:layout_weight="1"
+                />
         </LinearLayout>
 
     </LinearLayout>

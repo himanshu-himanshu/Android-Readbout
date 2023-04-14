@@ -16,7 +16,7 @@ import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.ui.activities.SingleCategoryActivity;
 
 public class CategoriesFragment extends Fragment {
-    LinearLayout entertainmentLinearLayout, sportsLinearLayout, scienceLinearLayout, environmetLinearLayout, businessLinearLayout, technologyLinearLayout;
+    LinearLayout entertainmentLinearLayout, sportsLinearLayout, scienceLinearLayout, environmentLinearLayout, businessLinearLayout, technologyLinearLayout;
     TextView headingTextView;
     @Nullable
     @Override
@@ -25,7 +25,7 @@ public class CategoriesFragment extends Fragment {
         entertainmentLinearLayout = view.findViewById(R.id.entertainmentCard);
         sportsLinearLayout = view.findViewById(R.id.sportsCard);
         scienceLinearLayout = view.findViewById(R.id.scienceCard);
-        environmetLinearLayout = view.findViewById(R.id.healthCard);
+        environmentLinearLayout = view.findViewById(R.id.healthCard);
         businessLinearLayout = view.findViewById(R.id.businessCard);
         technologyLinearLayout = view.findViewById(R.id.technologyCard);
 
@@ -53,7 +53,7 @@ public class CategoriesFragment extends Fragment {
             startActivity(intent);
         });
 
-        environmetLinearLayout.setOnClickListener(v -> {
+        environmentLinearLayout.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SingleCategoryActivity.class);
             headingTextView = view.findViewById(R.id.environmentText);
             intent.putExtra("heading", headingTextView.getText());

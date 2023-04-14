@@ -1,7 +1,6 @@
 package com.finalproject.milestone_readbout.ui.fragments;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
-
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -11,32 +10,24 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.adapters.RecyclerAdapter;
 import com.finalproject.milestone_readbout.api.Utilities;
 import com.finalproject.milestone_readbout.models.GuardianResponse;
 import com.finalproject.milestone_readbout.models.ResultsModel;
 import com.finalproject.milestone_readbout.utils.Constants;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,25 +73,16 @@ public class TrendingFragment extends Fragment {
     }
 
     private void fetchDataFromFirebase(String uid) {
-        //Toast.makeText(getContext(), "Trending fetch called", Toast.LENGTH_SHORT).show();
         DocumentReference doc = db.collection("users").document(uid);
-        doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    isFrench = documentSnapshot.getBoolean("french");
-                    language = isFrench ? "fr" : "en";
-                    fetchNews();
-                } else {
-                    Toast.makeText(getContext(), "Data not found", Toast.LENGTH_SHORT).show();
-                }
+        doc.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                isFrench = documentSnapshot.getBoolean("french");
+                language = isFrench ? "fr" : "en";
+                fetchNews();
+            } else {
+                Toast.makeText(getContext(), Constants.DATA_FETCHING_FAILED_FIREBASE, Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Failed to fetch data from firebase", Toast.LENGTH_SHORT).show();
-            }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(getContext(), Constants.DATA_FETCHING_FAILED_FIREBASE, Toast.LENGTH_SHORT).show());
     }
 
     private void fetchNews() {
@@ -130,9 +112,9 @@ public class TrendingFragment extends Fragment {
                             String webUrl = currentNews.getString("webUrl");
 
                             String thumbnail = null;
-                            String trailText = null;
+                            String trailText;
                             String trailTextHtmlToText = null;
-                            String newsBody = null;
+                            String newsBody;
                             String newsBodyHtmlToText = null;
 
                             JSONObject fieldsObject = currentNews.getJSONObject("fields");

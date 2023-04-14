@@ -88,12 +88,9 @@ public class SingleCategoryActivity extends AppCompatActivity {
 
         recyclerViewCategory.setAdapter(adapter);
 
-        //fetchNews();
-
         backImage.setOnClickListener(v->{
             this.finish();
         });
-
     }
 
     private void fetchDataFromFirebase(String uid) {
@@ -107,13 +104,13 @@ public class SingleCategoryActivity extends AppCompatActivity {
                     language = isFrench ? "fr" : "en";
                     fetchNews();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Data not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), Constants.DATA_FETCHING_FAILED_FIREBASE, Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Failed to fetch data from firebase", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), Constants.DATA_FETCHING_FAILED_FIREBASE, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -181,7 +178,7 @@ public class SingleCategoryActivity extends AppCompatActivity {
                         progressBarText.setVisibility(View.INVISIBLE);
 
                         if (resultsJsonArray.length() == 0) {
-                            progressBarText.setText("Sorry, no news exits!");
+                            progressBarText.setText(Constants.NO_NEWS);
                             progressBarText.setVisibility(View.VISIBLE);
                             recyclerViewCategory.setVisibility(View.INVISIBLE);
                         }

@@ -1,37 +1,18 @@
 package com.finalproject.milestone_readbout.ui.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
-import android.widget.Toast;
-
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.utils.Constants;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class GeneralSettingsActivity extends AppCompatActivity {
-
-    RadioGroup textRadioGroup;
-    private FirebaseFirestore db;
+    private RadioGroup textRadioGroup;
+    FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,9 +47,7 @@ public class GeneralSettingsActivity extends AppCompatActivity {
 //            }
 //        });
 
-        backImage.setOnClickListener(v -> {
-            this.finish();
-        });
+        backImage.setOnClickListener(v -> this.finish());
     }
 
     /**

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 
 public class SavedNewsFragment extends Fragment {
@@ -73,7 +71,7 @@ public class SavedNewsFragment extends Fragment {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 savedNewsFirebaseModels.clear();
                 if (error != null) {
-                    Log.e("TAG", "Failed to fetch data from firebase", error);
+                    Log.e("TAG", Constants.DATA_FETCHING_FAILED_FIREBASE, error);
                     return;
                 }
                 for (QueryDocumentSnapshot document : value) {

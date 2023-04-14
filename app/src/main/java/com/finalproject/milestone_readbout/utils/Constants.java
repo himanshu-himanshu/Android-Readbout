@@ -19,4 +19,8 @@ public class Constants {
     public static final String LOGOUT_ALERT = "Do you want to logout?";
     public static final String SEE_YOU_SOON = "See you soon!";
     public static final String WELCOME_BACK_MSG = "Welcome Back, enjoy latest news!";
+    public static final String EMAIL_ALREADY_REGISTERED = "Email already in use, Please Login.";
+    public static final String REGISTRATION_SUCCESSFUL_NOTIFICATION = "Thanks for registering to Readbout, enjoy live news.";
+    public static final String SUCCESSFULLY_SAVED_NEWS = "News Saved Successfully";
+    public static final String SUCCESSFULLY_SAVED_NEWS_DES = "Save your favourites to read later";
 }

@@ -41,7 +41,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:src="@drawable/baseline_favorite_border_24"/>
+            android:src="@drawable/baseline_favorite_border"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

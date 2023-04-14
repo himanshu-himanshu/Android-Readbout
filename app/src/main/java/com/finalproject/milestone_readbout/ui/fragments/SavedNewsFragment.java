@@ -9,20 +9,20 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.adapters.SavedNewsAdapter;
 import com.finalproject.milestone_readbout.models.SavedNewsFirebaseModel;
 import com.finalproject.milestone_readbout.utils.Constants;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 public class SavedNewsFragment extends Fragment {
@@ -34,6 +34,7 @@ public class SavedNewsFragment extends Fragment {
     String loggedUserID;
     private FirebaseFirestore db;
     FrameLayout noSavedNewsLinear;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,15 +67,15 @@ public class SavedNewsFragment extends Fragment {
     }
 
     private void fetchDataFromFirebase(String uid) {
-        db.collection("savedNews").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                savedNewsFirebaseModels.clear();
-                if (error != null) {
-                    Log.e("TAG", Constants.DATA_FETCHING_FAILED_FIREBASE, error);
-                    return;
-                }
-                for (QueryDocumentSnapshot document : value) {
+        db.collection("savedNews").addSnapshotListener((value, error) -> {
+            savedNewsFirebaseModels.clear();
+            if (error != null) {
+                Log.e("TAG", Constants.DATA_FETCHING_FAILED_FIREBASE, error);
+                return;
+            }
+            for (QueryDocumentSnapshot document : value) {
+                Log.e("TAG", uid + " ID from firebase: " + document.getString("userID"));
+                if (document.getString("userID").equals(uid)) {
                     savedNewsFirebaseModels.add(new SavedNewsFirebaseModel(
                             document.getString("userID"),
                             document.getString("title"),
@@ -83,14 +84,14 @@ public class SavedNewsFragment extends Fragment {
                             document.getString("imageUrl")
                     ));
                 }
-                adapter.notifyDataSetChanged();
-                progressBar.setVisibility(View.INVISIBLE);
-                progressBarText.setVisibility(View.INVISIBLE);
-                noSavedNewsLinear.setVisibility(View.INVISIBLE);
+            }
+            adapter.notifyDataSetChanged();
+            progressBar.setVisibility(View.INVISIBLE);
+            progressBarText.setVisibility(View.INVISIBLE);
+            noSavedNewsLinear.setVisibility(View.INVISIBLE);
 
-                if(savedNewsFirebaseModels.size() == 0) {
-                    noSavedNewsLinear.setVisibility(View.VISIBLE);
-                }
+            if (savedNewsFirebaseModels.size() == 0) {
+                noSavedNewsLinear.setVisibility(View.VISIBLE);
             }
         });
     }

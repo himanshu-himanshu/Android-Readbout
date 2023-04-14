@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Readbout</string>
     <string name="trendingHeading">Top Stories</string>
+    <string name="savedNewsHeading">Saved News</string>
     <string name="categoryHeading">Categories</string>
     <string name="categorySubHeading">Now get news by category. Click on any category to get related news.</string>
     <string name="entertainment">Entertainment</string>

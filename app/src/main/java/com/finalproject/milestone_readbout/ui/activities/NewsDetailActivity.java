@@ -77,6 +77,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         Map<String, Object> newsData = new HashMap<>();
         newsData.put("userID", loggedUserID);
         newsData.put("title", title);
+        newsData.put("description", desc);
         newsData.put("imageUrl", imageUrl);
         newsData.put("webUrl", webUrl);
 

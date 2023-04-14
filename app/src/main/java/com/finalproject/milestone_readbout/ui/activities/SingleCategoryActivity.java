@@ -51,7 +51,6 @@ public class SingleCategoryActivity extends AppCompatActivity {
     String loggedUserID, language = "en";
     Boolean isFrench;
     private FirebaseFirestore db;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +62,8 @@ public class SingleCategoryActivity extends AppCompatActivity {
         section = sectionName;
         setContentView(R.layout.activity_single_category_news);
 
-        SharedPreferences channel = this.getSharedPreferences("READBOUT_PREF", MODE_PRIVATE);
-        loggedUserID = channel.getString("loggedUserID", "Default");
+        SharedPreferences channel = this.getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
+        loggedUserID = channel.getString(Constants.LOGGED_USER_ID, "Default");
 
         fetchDataFromFirebase(loggedUserID);
 
@@ -91,7 +90,7 @@ public class SingleCategoryActivity extends AppCompatActivity {
 
         //fetchNews();
 
-        backImage.setOnClickListener(v -> {
+        backImage.setOnClickListener(v->{
             this.finish();
         });
 
@@ -146,8 +145,8 @@ public class SingleCategoryActivity extends AppCompatActivity {
                             String webUrl = currentNews.getString("webUrl");
 
                             String thumbnail = null;
-                            String trailText = null;
-                            String newsBody = null;
+                            String trailText;
+                            String newsBody;
                             String trailTextHtmlToText = null;
                             String newsBodyHtmlToText = null;
 

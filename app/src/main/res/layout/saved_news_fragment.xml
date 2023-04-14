@@ -1,18 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="#076A4E">
+    style="@style/mathParent"
+    android:background="@color/primary">
+
+    <TextView
+        style="@style/trendingHeading"
+        android:paddingHorizontal="20dp"
+        android:text="@string/savedNewsHeading"
+        android:id="@+id/heading" />
+
+    <ProgressBar
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/savedNewsProgressBar"
+        android:foregroundGravity="center"
+        android:layout_centerInParent="true"
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Saved News"
+        android:id="@+id/savedNewsProgressBarText"
+        android:text="Fetching Saved News..."
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="32sp"
-        android:textColor="@color/white"
-        />
+        android:textColor="@color/secondary"
+        android:layout_marginTop="90dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/savedNewsRecyclerView"
+        style="@style/trendingRecyclerView" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/noSavedNewsLinear"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_favorite_border_24"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Whoops!"
+            android:gravity="center"
+            android:textSize="28sp"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:layout_marginTop="130dp"
+            android:textColor="#aaaaaa"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Your favourite list is empty."
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="210dp"
+            android:textColor="#dddddd"
+            />
+    </FrameLayout>
 
 </RelativeLayout>

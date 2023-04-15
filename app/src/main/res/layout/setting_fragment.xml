@@ -120,6 +120,7 @@
 
         <LinearLayout
             style="@style/settingLinearLayout"
+            android:id="@+id/aboutLinear"
             android:orientation="horizontal"
             android:gravity="center">
             <LinearLayout

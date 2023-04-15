@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/categoryRelative"
+    android:paddingHorizontal="10sp"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/newsDetailHeadingLinearLayout"
+        android:layout_marginVertical="20dp" >
+
+        <ImageView
+            android:id="@+id/aboutBackImage"
+            style="@style/newsDetailBackImage"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <TextView style="@style/readboutHeading"
+                android:gravity="center"
+                android:text="About US"
+                android:layout_weight="20"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="start"
+        android:padding="10sp">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/about"/>
+
+        <TextView
+            android:id="@+id/aboutTop"
+            style="@style/categorySubHeading"
+            android:layout_gravity="start"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:textSize="18sp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/aboutUsHeading"
+            />
+
+        <TextView
+            android:id="@+id/aboutDesc"
+            style="@style/categorySubHeading"
+            android:layout_gravity="start"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/aboutUsDesc"
+             />
+
+        <TextView
+            android:id="@+id/madeBy"
+            style="@style/categorySubHeading"
+            android:layout_gravity="start"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/raleway_b"
+            android:text="Made With ♥"
+            android:textColor="#009788" />
+
+    </LinearLayout>
+</LinearLayout>

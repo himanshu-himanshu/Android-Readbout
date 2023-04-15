@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.finalproject.milestone_readbout.R;
+import com.finalproject.milestone_readbout.ui.activities.AboutUsActivity;
 import com.finalproject.milestone_readbout.ui.activities.GeneralSettingsActivity;
 import com.finalproject.milestone_readbout.ui.activities.LoginActivity;
 import com.finalproject.milestone_readbout.utils.Constants;
@@ -26,7 +27,7 @@ import java.util.Map;
 
 public class SettingFragment extends Fragment {
     private FirebaseFirestore db;
-    LinearLayout generalLinearLayout, logoutLinearLayout;
+    LinearLayout generalLinearLayout, logoutLinearLayout, aboutLinearLayout;
     TextView usernameText;
     TextView emailText;
     SwitchMaterial notification, french;
@@ -46,6 +47,7 @@ public class SettingFragment extends Fragment {
 
         generalLinearLayout = view.findViewById(R.id.generalTab);
         logoutLinearLayout = view.findViewById(R.id.logoutLinear);
+        aboutLinearLayout = view.findViewById(R.id.aboutLinear);
         usernameText = view.findViewById(R.id.settingUsername);
         emailText = view.findViewById(R.id.settingEmail);
         notification = view.findViewById(R.id.notificationSwitch);
@@ -54,6 +56,11 @@ public class SettingFragment extends Fragment {
         generalLinearLayout.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), GeneralSettingsActivity.class);
             intent.putExtra(Constants.LOGGED_USER_ID, loggedUserID);
+            startActivity(intent);
+        });
+
+        aboutLinearLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AboutUsActivity.class);
             startActivity(intent);
         });
 

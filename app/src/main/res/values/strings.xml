@@ -16,4 +16,8 @@
 
     <string name="environment">Environment</string>
 
+    <string name="aboutUsHeading">Welcome to our app, Readbout is developed to get latest news about Canada. Users can visit different categories and get the related news.</string>
+
+    <string name="aboutUsDesc">Developed by Himanshu and Gurminder using Java and Firebase. You can log in into the app and start getting the latest news according to your preference.</string>
+
 </resources>

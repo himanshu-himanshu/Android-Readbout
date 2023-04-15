@@ -1,12 +1,9 @@
 package com.finalproject.milestone_readbout.ui.activities;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,20 +14,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.adapters.RecyclerAdapter;
 import com.finalproject.milestone_readbout.api.Utilities;
 import com.finalproject.milestone_readbout.models.GuardianResponse;
 import com.finalproject.milestone_readbout.models.ResultsModel;
 import com.finalproject.milestone_readbout.utils.Constants;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,10 +37,10 @@ public class SingleCategoryActivity extends AppCompatActivity {
     ArrayList<ResultsModel> resultsModelArrayList;
     RecyclerAdapter adapter;
     private RecyclerView recyclerViewCategory;
-    private String section;
-    private TextView headingTextView, progressBarText;
+    String section;
+    TextView headingTextView, progressBarText;
     ProgressBar progressBar;
-    String loggedUserID, language = "en";
+    String loggedUserID, language = "en", pageSize, orderBy;
     Boolean isFrench;
     private FirebaseFirestore db;
     @Override
@@ -88,35 +80,26 @@ public class SingleCategoryActivity extends AppCompatActivity {
 
         recyclerViewCategory.setAdapter(adapter);
 
-        backImage.setOnClickListener(v->{
-            this.finish();
-        });
+        backImage.setOnClickListener(v-> this.finish());
     }
 
     private void fetchDataFromFirebase(String uid) {
-        //Toast.makeText(getContext(), "Trending fetch called", Toast.LENGTH_SHORT).show();
         DocumentReference doc = db.collection("users").document(uid);
-        doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    isFrench = documentSnapshot.getBoolean("french");
-                    language = isFrench ? "fr" : "en";
-                    fetchNews();
-                } else {
-                    Toast.makeText(getApplicationContext(), Constants.DATA_FETCHING_FAILED_FIREBASE, Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+        doc.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                pageSize = documentSnapshot.getString("pageSize");
+                orderBy = documentSnapshot.getString("orderBy");
+                isFrench = documentSnapshot.getBoolean("french");
+                language = isFrench ? "fr" : "en";
+                fetchNews();
+            } else {
                 Toast.makeText(getApplicationContext(), Constants.DATA_FETCHING_FAILED_FIREBASE, Toast.LENGTH_SHORT).show();
             }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), Constants.DATA_FETCHING_FAILED_FIREBASE, Toast.LENGTH_SHORT).show());
     }
 
     private void fetchNews() {
-        Utilities.getInterface().getSectionGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, Constants.PAGE_SIZE, section, language).enqueue(new Callback<GuardianResponse>() {
+        Utilities.getInterface().getSectionGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, Integer.parseInt(pageSize), section, language, orderBy).enqueue(new Callback<GuardianResponse>() {
             @Override
             public void onResponse(Call<GuardianResponse> call, Response<GuardianResponse> response) {
                 if (response.isSuccessful()) {

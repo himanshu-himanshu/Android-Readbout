@@ -18,6 +18,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,15 +108,15 @@ public class NewsDetailActivity extends AppCompatActivity {
                 }
                 if(!alreadyInList || i == 0) {
                     db.collection("savedNews").add(newsData).addOnSuccessListener(documentReference ->
-                            Log.e("TAG", "Added to lis"))
-                            .addOnFailureListener(e -> Log.w("TAG", "Error adding document", e));
-                    Toast.makeText(getApplicationContext(), "Added to list", Toast.LENGTH_SHORT).show();
+                            Log.e(Constants.TAG, Constants.ALREADY_SAVED))
+                            .addOnFailureListener(e -> Log.w(Constants.TAG, Constants.SAVING_NEWS_ERROR, e));
+                    Toast.makeText(getApplicationContext(), Constants.SAVED_NEWS, Toast.LENGTH_SHORT).show();
                     fetchDataFromFirebase(loggedUserID);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Already in list", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), Constants.ALREADY_SAVED, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Log.d("TAG", "Error getting documents: ", task.getException());
+                Log.d(Constants.TAG, Constants.DOCUMENTS_ERROR, task.getException());
             }
         });
     }

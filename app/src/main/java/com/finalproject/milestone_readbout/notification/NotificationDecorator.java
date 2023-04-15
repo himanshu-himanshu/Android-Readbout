@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import com.finalproject.milestone_readbout.MainActivity;
 import com.finalproject.milestone_readbout.R;
+import com.finalproject.milestone_readbout.utils.Constants;
 import java.util.Random;
 
 public class NotificationDecorator {
@@ -65,10 +66,8 @@ public class NotificationDecorator {
                 }
                 notificationMgr.notify(new Random().nextInt(), noti);
                 noti.flags |= Notification.FLAG_AUTO_CANCEL;
-                Log.d(TAG, "Inside try block notification");
             } catch (IllegalArgumentException e) {
-                Log.d(TAG, "Inside catch block notification");
-                Log.e(TAG, e.getMessage());
+                Log.e(Constants.TAG, e.getMessage());
             }
         }
     }

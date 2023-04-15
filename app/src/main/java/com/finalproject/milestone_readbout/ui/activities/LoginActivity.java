@@ -42,9 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         TextView signupLink;
 
         emailInputText = findViewById(R.id.emailInputField);
-        emailInputText.setText("him@yopmail.com");
+        emailInputText.setText("guru@yopmail.com");
         passwordInputText = findViewById(R.id.passwordInputField);
-        passwordInputText.setText("himanshu");
+        passwordInputText.setText("12345678");
         loginButton = findViewById(R.id.loginBtn);
         signupLink = findViewById(R.id.registerNow);
 

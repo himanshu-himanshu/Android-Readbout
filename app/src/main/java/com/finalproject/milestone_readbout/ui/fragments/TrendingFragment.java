@@ -35,13 +35,12 @@ import retrofit2.Response;
 public class TrendingFragment extends Fragment {
     private ArrayList<ResultsModel> resultsModelArrayList;
     private RecyclerAdapter adapterSecond;
-    private RecyclerView recyclerViewTrending;
+    RecyclerView recyclerViewTrending;
     private ProgressBar progressBar;
     private TextView progressBarText;
-    private String loggedUserID, language = "en";
+    String loggedUserID, language = "en", pageSize = "20", orderBy = "newest";
     private FirebaseFirestore db;
     private Boolean isFrench;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,10 +72,13 @@ public class TrendingFragment extends Fragment {
     }
 
     private void fetchDataFromFirebase(String uid) {
+        Log.e("TAG","FETCH CALLED ON TRENDING");
         DocumentReference doc = db.collection("users").document(uid);
         doc.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 isFrench = documentSnapshot.getBoolean("french");
+                pageSize = documentSnapshot.getString("pageSize");
+                orderBy = documentSnapshot.getString("orderBy");
                 language = isFrench ? "fr" : "en";
                 fetchNews();
             } else {
@@ -86,7 +88,8 @@ public class TrendingFragment extends Fragment {
     }
 
     private void fetchNews() {
-        Utilities.getInterface().getGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, Constants.PAGE_SIZE, language).enqueue(new Callback<GuardianResponse>() {
+        Log.e("TAG", "Inside fetch news trending" + pageSize + orderBy);
+        Utilities.getInterface().getGuardianNews(Constants.GUARDIAN_API_KEY, Constants.SHOW_FIELDS, pageSize, language, orderBy).enqueue(new Callback<GuardianResponse>() {
             @Override
             public void onResponse(Call<GuardianResponse> call, Response<GuardianResponse> response) {
                 if (response.isSuccessful()) {
@@ -152,7 +155,6 @@ public class TrendingFragment extends Fragment {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<GuardianResponse> call, Throwable t) {
             }

@@ -23,4 +23,9 @@ public class Constants {
     public static final String REGISTRATION_SUCCESSFUL_NOTIFICATION = "Thanks for registering to Readbout, enjoy live news.";
     public static final String SUCCESSFULLY_SAVED_NEWS = "News Saved Successfully";
     public static final String SUCCESSFULLY_SAVED_NEWS_DES = "Save your favourites to read later";
+    public static final String SAVED_NEWS = "Added to list";
+    public static final String ALREADY_SAVED = "Already in list";
+    public static final String SAVING_NEWS_ERROR = "Already in list";
+    public static final String DOCUMENTS_ERROR = "Error getting documents";
+    public static final String TAG = "TAG";
 }

@@ -45,50 +45,6 @@
 
         </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical"-->
-<!--            style="@style/settingLinearLayout"-->
-<!--            android:background="@drawable/round_white_back">-->
-
-<!--            <TextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Text Size"-->
-<!--                style="@style/settingTitle"-->
-<!--                />-->
-
-<!--            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--                android:id="@+id/textSizeRadioGroup"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_marginTop="10dp">-->
-
-<!--                <RadioButton android:id="@+id/rbSmallText"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Small"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:layout_marginRight="10dp" />-->
-
-<!--                <RadioButton android:id="@+id/rbMediumText"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Medium"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:checked="true"-->
-<!--                    android:layout_marginRight="10dp" />-->
-
-<!--                <RadioButton android:id="@+id/rbLargeText"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Medium"-->
-<!--                    android:textColor="@color/white"/>-->
-<!--            </RadioGroup>-->
-<!--        </LinearLayout>-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -159,7 +115,7 @@
                 <RadioButton android:id="@+id/rbNewest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Newest"
+                    android:text="newest"
                     android:textColor="@color/white"
                     android:checked="true"
                     android:layout_marginRight="10dp" />
@@ -167,7 +123,7 @@
                 <RadioButton android:id="@+id/rbOldest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Oldest"
+                    android:text="oldest"
                     android:textColor="@color/white"
                     android:layout_marginRight="10dp" />
 

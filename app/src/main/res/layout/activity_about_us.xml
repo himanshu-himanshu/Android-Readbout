@@ -47,21 +47,12 @@
         <TextView
             android:id="@+id/aboutTop"
             style="@style/categorySubHeading"
-            android:layout_gravity="start"
-            android:gravity="center"
-            android:layout_marginTop="50dp"
-            android:textSize="18sp"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/aboutUsHeading"
             />
 
         <TextView
             android:id="@+id/aboutDesc"
             style="@style/categorySubHeading"
-            android:layout_gravity="start"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:fontFamily="@font/montserrat"
+            android:layout_marginTop="0dp"
             android:text="@string/aboutUsDesc"
              />
 

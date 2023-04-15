@@ -14,7 +14,7 @@ public class Constants {
     public static final String LOGIN_FAILED = "Login Failed";
     public static final String REGISTRATION_FAILED = "Registration Failed";
     public static final String EMPTY_FIELDS_ERROR = "Fields cannot be empty";
-    public static final String NO_NEWS = "Sorry, no news exits!";
+    public static final String NO_NEWS = "Sorry, no news exists!";
     public static final String DATA_FETCHING_FAILED_FIREBASE = "Failed to fetch data from firebase";
     public static final String LOGOUT_ALERT = "Do you want to logout?";
     public static final String SEE_YOU_SOON = "See you soon!";

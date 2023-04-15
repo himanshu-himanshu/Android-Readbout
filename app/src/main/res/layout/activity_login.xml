@@ -2,10 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#201A30"
-    android:gravity="center"
+    style="@style/LoginRelative"
     android:paddingHorizontal="20sp"
     tools:context=".ui.activities.LoginActivity">
 
@@ -22,14 +19,8 @@
 
         <TextView
             android:id="@+id/loginText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:letterSpacing=".01"
-            android:paddingVertical="20dp"
-            android:text="Login"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            style="@style/LoginHeading"
+            android:paddingVertical="20dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -56,13 +47,7 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/emailInputField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/baseline_mail_24"
-                android:drawablePadding="10sp"
-                android:hint="EMAIL"
-                android:textColor="#bbbbbb"
-                android:textSize="18sp" />
+                style="@style/LoginEmailEdit" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -89,24 +74,12 @@
                 android:drawablePadding="10sp"
                 android:hint="PASSWORD"
                 android:inputType="textPassword"
-                android:textColor="#999999"
-                />
+                android:textColor="#999999" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="74sp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="40sp"
-            android:backgroundTint="#0CF4E3"
-            android:elevation="10sp"
-            android:gravity="center"
-            android:letterSpacing="0.05"
-            android:text="Log In"
-            android:textColor="#333333"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            style="@style/LoginButton"
             app:cornerRadius="50sp" />
 
         <LinearLayout

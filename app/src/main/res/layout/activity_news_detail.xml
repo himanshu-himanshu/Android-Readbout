@@ -30,7 +30,7 @@
                 />
             <ImageView
                 style="@style/newsDetailLogoImage"
-                android:src="@drawable/baseline_ios_share_24"
+                android:src="@drawable/baseline_open_in_browser_24"
                 android:id="@+id/getOnWeb"
                 android:layout_weight="1"
                 />
@@ -84,7 +84,7 @@
                 android:backgroundTint="#263A29"
                 android:text="Read On Web"
                 android:textColor="@color/white"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 />
 

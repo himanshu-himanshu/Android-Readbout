@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -15,6 +16,8 @@ import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.notification.NotificationDecorator;
 import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -30,6 +33,7 @@ public class NewsDetailActivity extends AppCompatActivity {
     String title, desc, body, author, date, imageUrl, webUrl, loggedUserID;
     NotificationManager notificationMgr;
     NotificationDecorator notificationDecorator;
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         ImageView savedButton = findViewById(R.id.saveNewsButton);
         ImageView getOnWeb = findViewById(R.id.getOnWeb);
         MaterialButton readOnWebButton = findViewById(R.id.readOnWebButton);
+        linearLayout = findViewById(R.id.newsDetailLinear);
 
         Glide.with(this).load(imageUrl).into(newsImage);
 
@@ -110,7 +115,10 @@ public class NewsDetailActivity extends AppCompatActivity {
                     db.collection("savedNews").add(newsData).addOnSuccessListener(documentReference ->
                             Log.e(Constants.TAG, Constants.ALREADY_SAVED))
                             .addOnFailureListener(e -> Log.w(Constants.TAG, Constants.SAVING_NEWS_ERROR, e));
-                    Toast.makeText(getApplicationContext(), Constants.SAVED_NEWS, Toast.LENGTH_SHORT).show();
+                    Snackbar snackbar = Snackbar
+                            .make(linearLayout, Constants.SAVED_NEWS, Snackbar.LENGTH_LONG);
+                    snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+                    snackbar.show();
                     fetchDataFromFirebase(loggedUserID);
                 } else {
                     Toast.makeText(getApplicationContext(), Constants.ALREADY_SAVED, Toast.LENGTH_SHORT).show();

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/settingRelative"
     android:gravity="center"
     android:background="#1e1e1e">
 
@@ -109,7 +110,7 @@
 
                 <TextView
                     style="@style/settingValue"
-                    android:text="Set news language to french" />
+                    android:text="Get french news" />
             </LinearLayout>
 
             <com.google.android.material.switchmaterial.SwitchMaterial

@@ -12,4 +12,5 @@
     <color name="primary">#201A30</color>
     <color name="lightPrimary">#312849</color>
     <color name="secondary">#FFF4E0</color>
+    <color name="my_background">#F44336</color>
 </resources>

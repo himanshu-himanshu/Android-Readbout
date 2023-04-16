@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/LoginRelative"
+    android:id="@+id/loginRelative"
     android:paddingHorizontal="20sp"
     tools:context=".ui.activities.LoginActivity">
 

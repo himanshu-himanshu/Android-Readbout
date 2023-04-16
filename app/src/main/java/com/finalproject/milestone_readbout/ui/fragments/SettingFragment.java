@@ -73,7 +73,7 @@ public class SettingFragment extends Fragment {
                     "Yes",
                     (dialog, id) -> {
                         FirebaseAuth.getInstance().signOut();
-                        Toast.makeText(getContext(), Constants.SEE_YOU_SOON, Toast.LENGTH_SHORT).show();
+                        LoginActivity.isLoggedOut = true;
                         Intent intent = new Intent(getContext(), LoginActivity.class);
                         startActivity(intent);
                     });

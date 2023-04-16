@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.finalproject.milestone_readbout.MainActivity;
@@ -14,6 +15,8 @@ import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.notification.NotificationDecorator;
 import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     private NotificationManager notificationMgr;
     private NotificationDecorator notificationDecorator;
+    RelativeLayout relativeLayout;
+    public static Boolean isLoggedOut = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,15 @@ public class LoginActivity extends AppCompatActivity {
         passwordInputText.setText("12345678");
         loginButton = findViewById(R.id.loginBtn);
         signupLink = findViewById(R.id.registerNow);
+        relativeLayout = findViewById(R.id.loginRelative);
+
+        if(isLoggedOut) {
+            Snackbar snackbar = Snackbar
+                    .make(relativeLayout, Constants.SEE_YOU_SOON, Snackbar.LENGTH_LONG);
+            snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+            snackbar.show();
+            isLoggedOut = false;
+        }
 
         /*---- Shared Preferences to store logged user ID received from Firebase ----*/
         sharedpreferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);

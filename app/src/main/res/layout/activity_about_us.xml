@@ -62,8 +62,10 @@
             android:layout_gravity="start"
             android:gravity="center"
             android:layout_marginTop="50dp"
-            android:fontFamily="@font/raleway_b"
+            android:fontFamily="@font/alex"
+            android:textSize="26dp"
             android:text="Made With ♥"
+            android:textStyle="bold"
             android:textColor="#009788" />
 
     </LinearLayout>

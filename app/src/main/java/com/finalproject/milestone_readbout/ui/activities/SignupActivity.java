@@ -40,7 +40,6 @@ public class SignupActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     private NotificationManager notificationMgr;
     private NotificationDecorator notificationDecorator;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +81,7 @@ public class SignupActivity extends AppCompatActivity {
                 mAuth.createUserWithEmailAndPassword(emailInputText.getText().toString(), passwordInputText.getText().toString()).addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        Toast.makeText(getBaseContext(), Constants.REGISTRATION_SUCCESSFUL, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getBaseContext(), Constants.REGISTRATION_SUCCESSFUL, Toast.LENGTH_SHORT).show();
                         FirebaseUser user = mAuth.getCurrentUser();
 
                         // Store User ID into shared preference
@@ -126,7 +125,7 @@ public class SignupActivity extends AppCompatActivity {
         db.collection("users").document(uid).set(user).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Log.e("TAG", "Saved to firebase");
-                Toast.makeText(getApplicationContext(), "uid from pref" + sharedpreferences.getString("loggedUserID", ""), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "uid from pref" + sharedpreferences.getString("loggedUserID", ""), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 notificationDecorator.displayExpandableNotification(Constants.REGISTRATION_SUCCESSFUL, Constants.REGISTRATION_SUCCESSFUL_NOTIFICATION);

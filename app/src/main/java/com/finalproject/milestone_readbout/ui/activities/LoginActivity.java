@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private NotificationDecorator notificationDecorator;
     RelativeLayout relativeLayout;
     public static Boolean isLoggedOut = false;
+    Boolean allowNotifications;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +91,11 @@ public class LoginActivity extends AppCompatActivity {
 
                         fetchDataFromFirebase(user.getUid());
 
+                        new Handler().postDelayed(() -> {
+                            if(allowNotifications)
+                                notificationDecorator.displayExpandableNotification("Save News", "Save your favourites to your list and read them later on.");
+                        }, 8 * 1000);
+
                         // Navigate to MainActivity after logging in
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
@@ -109,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
         DocumentReference doc = db.collection("users").document(uid);
         doc.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
-                boolean allowNotifications = documentSnapshot.getBoolean("allowNotifications");
+                allowNotifications = documentSnapshot.getBoolean("allowNotifications");
                 if(allowNotifications) {
                     /* Send notification messages */
                     notificationDecorator.displayExpandableNotification(Constants.LOGIN_SUCCESSFUL, Constants.WELCOME_BACK_MSG);

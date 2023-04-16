@@ -1,11 +1,8 @@
 package com.finalproject.milestone_readbout.ui.activities;
 
 import static android.text.TextUtils.isEmpty;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
-
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,23 +11,15 @@ import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.finalproject.milestone_readbout.MainActivity;
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.notification.NotificationDecorator;
 import com.finalproject.milestone_readbout.utils.Constants;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,8 +30,8 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     SharedPreferences sharedpreferences;
-    private NotificationManager notificationMgr;
-    private NotificationDecorator notificationDecorator;
+    NotificationManager notificationMgr;
+    NotificationDecorator notificationDecorator;
     RelativeLayout relativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +119,6 @@ public class SignupActivity extends AppCompatActivity {
         db.collection("users").document(uid).set(user).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Log.e("TAG", "Saved to firebase");
-                //Toast.makeText(getApplicationContext(), "uid from pref" + sharedpreferences.getString("loggedUserID", ""), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 notificationDecorator.displayExpandableNotification(Constants.REGISTRATION_SUCCESSFUL, Constants.REGISTRATION_SUCCESSFUL_NOTIFICATION);

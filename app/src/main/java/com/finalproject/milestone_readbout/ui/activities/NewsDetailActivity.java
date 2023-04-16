@@ -34,6 +34,7 @@ public class NewsDetailActivity extends AppCompatActivity {
     NotificationManager notificationMgr;
     NotificationDecorator notificationDecorator;
     LinearLayout linearLayout;
+    Boolean allowNotifications;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,8 @@ public class NewsDetailActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.newsDetailLinear);
 
         Glide.with(this).load(imageUrl).into(newsImage);
+
+        fetchDataFromFirebase(loggedUserID);
 
         newsDetailHeading.setText(title);
         newsAuthor.setText(author);
@@ -115,13 +118,20 @@ public class NewsDetailActivity extends AppCompatActivity {
                     db.collection("savedNews").add(newsData).addOnSuccessListener(documentReference ->
                             Log.e(Constants.TAG, Constants.ALREADY_SAVED))
                             .addOnFailureListener(e -> Log.w(Constants.TAG, Constants.SAVING_NEWS_ERROR, e));
+                    if (allowNotifications) {
+                        /* Send notification messages */
+                        notificationDecorator.displayExpandableNotification(Constants.SUCCESSFULLY_SAVED_NEWS, Constants.SUCCESSFULLY_SAVED_NEWS_DES);
+                    } else {
+                        Snackbar snackbar = Snackbar
+                                .make(linearLayout, Constants.SAVED_NEWS, Snackbar.LENGTH_LONG);
+                        snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+                        snackbar.show();
+                    }
+                } else {
                     Snackbar snackbar = Snackbar
-                            .make(linearLayout, Constants.SAVED_NEWS, Snackbar.LENGTH_LONG);
+                            .make(linearLayout, Constants.ALREADY_SAVED, Snackbar.LENGTH_LONG);
                     snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
                     snackbar.show();
-                    fetchDataFromFirebase(loggedUserID);
-                } else {
-                    Toast.makeText(getApplicationContext(), Constants.ALREADY_SAVED, Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Log.d(Constants.TAG, Constants.DOCUMENTS_ERROR, task.getException());
@@ -133,11 +143,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         DocumentReference doc = db.collection("users").document(uid);
         doc.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
-                boolean allowNotifications = documentSnapshot.getBoolean("allowNotifications");
-                if (allowNotifications) {
-                    /* Send notification messages */
-                    notificationDecorator.displayExpandableNotification(Constants.SUCCESSFULLY_SAVED_NEWS, Constants.SUCCESSFULLY_SAVED_NEWS_DES);
-                }
+                allowNotifications = documentSnapshot.getBoolean("allowNotifications");
             } else {
                 Toast.makeText(getApplicationContext(), Constants.DATA_FETCHING_FAILED_FIREBASE, Toast.LENGTH_SHORT).show();
             }

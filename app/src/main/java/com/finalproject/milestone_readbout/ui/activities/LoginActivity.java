@@ -94,7 +94,10 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else {
                         // If sign in fails, display a message to the user.
-                        Toast.makeText(getBaseContext(), Constants.LOGIN_FAILED, Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar
+                                .make(relativeLayout, Constants.LOGIN_FAILED, Snackbar.LENGTH_LONG);
+                        snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+                        snackbar.show();
                     }
                 });
             }
@@ -108,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
             if (documentSnapshot.exists()) {
                 boolean allowNotifications = documentSnapshot.getBoolean("allowNotifications");
                 if(allowNotifications) {
-
                     /* Send notification messages */
                     notificationDecorator.displayExpandableNotification(Constants.LOGIN_SUCCESSFUL, Constants.WELCOME_BACK_MSG);
                 }

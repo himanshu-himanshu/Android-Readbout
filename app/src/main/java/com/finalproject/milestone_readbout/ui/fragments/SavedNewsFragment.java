@@ -1,5 +1,6 @@
 package com.finalproject.milestone_readbout.ui.fragments;
 
+import android.app.NotificationManager;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.finalproject.milestone_readbout.R;
 import com.finalproject.milestone_readbout.adapters.SavedNewsAdapter;
 import com.finalproject.milestone_readbout.models.SavedNewsFirebaseModel;
+import com.finalproject.milestone_readbout.notification.NotificationDecorator;
 import com.finalproject.milestone_readbout.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +31,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -45,7 +48,6 @@ public class SavedNewsFragment extends Fragment {
     String loggedUserID;
     private FirebaseFirestore db;
     FrameLayout noSavedNewsLinear;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

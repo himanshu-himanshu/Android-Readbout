@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private NotificationDecorator notificationDecorator;
     RelativeLayout relativeLayout;
     public static Boolean isLoggedOut = false;
+    public static Boolean alreadyRegistered = false;
     Boolean allowNotifications;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,14 @@ public class LoginActivity extends AppCompatActivity {
             snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
             snackbar.show();
             isLoggedOut = false;
+        }
+
+        if(alreadyRegistered) {
+            Snackbar snackbar = Snackbar
+                    .make(relativeLayout, Constants.EMAIL_ALREADY_REGISTERED, Snackbar.LENGTH_LONG);
+            snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+            snackbar.show();
+            alreadyRegistered = false;
         }
 
         /*---- Shared Preferences to store logged user ID received from Firebase ----*/
